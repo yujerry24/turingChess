@@ -26,11 +26,6 @@ for h : 1 .. 8
     Sprite.Show (whitePawnArray (h))
 end for
 
-% Black rook sprite
-var blackRookIMG, blackRookSPR : int
-blackRookIMG := Pic.FileNew ("blackRook.bmp")
-blackRookIMG := Pic.Scale (blackRookIMG, 100, 100)
-blackRookSPR := Sprite.New (blackRookIMG)
 
 % Black rook sprite array
 var blackRookArray : array 1 .. 2 of int
@@ -46,11 +41,6 @@ for a : 1 .. 2
     end if
 end for
 
-% Black knight sprite
-var blackKnightIMG, blackKnightSPR : int
-blackKnightIMG := Pic.FileNew ("blackKnight.bmp")
-blackKnightIMG := Pic.Scale (blackKnightIMG, 100, 100)
-blackKnightSPR := Sprite.New (blackKnightIMG)
 
 % Black knight sprite array
 var blackKnightArray : array 1 .. 2 of int
@@ -66,13 +56,6 @@ for b : 1 .. 2
     end if
 end for
 
-
-% Black bishop sprite
-var blackBishopIMG, blackBishopSPR : int
-blackBishopIMG := Pic.FileNew ("blackBishop.bmp")
-blackBishopIMG := Pic.Scale (blackBishopIMG, 100, 100)
-blackBishopSPR := Sprite.New (blackBishopIMG)
-
 % Black knight sprite array
 var blackBishopArray : array 1 .. 2 of int
 for c : 1 .. 2
@@ -87,12 +70,6 @@ for c : 1 .. 2
     end if
 end for
 
-% Black king sprite
-var blackKingIMG, blackKingSPR : int
-blackKingIMG := Pic.FileNew ("blackKing.bmp")
-blackKingIMG := Pic.Scale (blackKingIMG, 100, 100)
-blackKingSPR := Sprite.New (blackKingIMG)
-
 % Black king array
 var blackKingArray : array 1 .. 1 of int
 for d : 1 .. 1
@@ -103,12 +80,6 @@ for d : 1 .. 1
     end if
    
 end for
-
-% Black queen sprite
-var blackQueenIMG, blackQueenSPR : int
-blackQueenIMG := Pic.FileNew ("blackQueen.bmp")
-blackQueenIMG := Pic.Scale (blackQueenIMG, 100, 100)
-blackQueenSPR := Sprite.New (blackQueenIMG)
 
 % Black queen array
 var blackQueenArray : array 1 .. 1 of int
@@ -121,11 +92,6 @@ for e : 1 .. 1
    
 end for
 
-% White rook sprite
-var whiteRookIMG, whiteRookSPR : int
-whiteRookIMG := Pic.FileNew ("whiteRook.bmp")
-whiteRookIMG := Pic.Scale (whiteRookIMG, 100, 100)
-whiteRookSPR := Sprite.New (whiteRookIMG)
 
 % White rook sprite array
 var whiteRookArray : array 1 .. 2 of int
@@ -141,11 +107,6 @@ for f : 1 .. 2
     end if
 end for
 
-% White knight sprite
-var whiteKnightIMG, whiteKnightSPR : int
-whiteKnightIMG := Pic.FileNew ("whiteKnight.bmp")
-whiteKnightIMG := Pic.Scale (whiteKnightIMG, 100, 100)
-whiteKnightSPR := Sprite.New (whiteKnightIMG)
 
 % White knight sprite array
 var whiteKnightArray : array 1 .. 2 of int
@@ -161,11 +122,6 @@ for g : 1 .. 2
     end if
 end for
 
-% White bishop sprite
-var whiteBishopIMG, whiteBishopSPR : int
-whiteBishopIMG := Pic.FileNew ("whiteBishop.bmp")
-whiteBishopIMG := Pic.Scale (whiteBishopIMG, 100, 100)
-whiteBishopSPR := Sprite.New (whiteBishopIMG)
 
 % White bishop sprite array
 var whiteBishopArray : array 1 .. 2 of int
@@ -181,11 +137,6 @@ for j : 1 .. 2
     end if
 end for
 
-% White king sprite
-var whiteKingIMG, whiteKingSPR : int
-whiteKingIMG := Pic.FileNew ("whiteKing.bmp")
-whiteKingIMG := Pic.Scale (whiteKingIMG, 100, 100)
-whiteKingSPR := Sprite.New (whiteKingIMG)
 
 % White king array
 var whiteKingArray : array 1 .. 1 of int
@@ -197,12 +148,6 @@ for k : 1 .. 1
     end if
    
 end for
-
-% White queen sprite
-var whiteQueenIMG, whiteQueenSPR : int
-whiteQueenIMG := Pic.FileNew ("whiteQueen.bmp")
-whiteQueenIMG := Pic.Scale (whiteQueenIMG, 100, 100)
-whiteQueenSPR := Sprite.New (whiteQueenIMG)
 
 % White queen array
 var whiteQueenArray : array 1 .. 1 of int
