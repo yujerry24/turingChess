@@ -8,25 +8,7 @@ var font1 : int
 font1 := Font.New ("MS Serif:33:Bold") 
 Font.Draw("Chess 2-Player", maxx div 2, maxy-100,font1, black)
 
-% Chess board sprite
-var chessSprite, chessImg : int
-chessImg := Pic.FileNew ("emptyBoard.jpg")
-chessImg := Pic.Scale (chessImg, 800, 800)
-chessSprite := Sprite.New (chessImg)
-Sprite.SetPosition (chessSprite, 0, 0, false)
-Sprite.Show (chessSprite)
-
-% Black pawn sprite
-var blackPawnIMG, blackPawnSPR : int
-blackPawnIMG := Pic.FileNew ("blackPawn.bmp")
-blackPawnIMG := Pic.Scale (blackPawnIMG, 100, 100)
-blackPawnSPR := Sprite.New (blackPawnIMG)
-
-% White pawn sprite
-var whitePawnIMG, whitePawnSPR : int
-whitePawnIMG := Pic.FileNew ("whitePawn.bmp")
-whitePawnIMG := Pic.Scale (whitePawnIMG, 100, 100)
-whitePawnSPR := Sprite.New (whitePawnIMG)
+include "imageImport.t"
 
 % Black pawn sprite array
 var blackPawnArray : array 1 .. 8 of int
@@ -55,12 +37,12 @@ var blackRookArray : array 1 .. 2 of int
 for a : 1 .. 2
     blackRookArray (a) := Sprite.New (blackRookIMG)
     if a = 1 then
-        Sprite.SetPosition (blackRookArray (a), 50, 750, true)
-        Sprite.Show (blackRookArray (a))
+	Sprite.SetPosition (blackRookArray (a), 50, 750, true)
+	Sprite.Show (blackRookArray (a))
     end if
     if a = 2 then
-        Sprite.SetPosition (blackRookArray (a), 750, 750, true)
-        Sprite.Show (blackRookArray (a))
+	Sprite.SetPosition (blackRookArray (a), 750, 750, true)
+	Sprite.Show (blackRookArray (a))
     end if
 end for
 
@@ -75,12 +57,12 @@ var blackKnightArray : array 1 .. 2 of int
 for b : 1 .. 2
     blackKnightArray (b) := Sprite.New (blackKnightIMG)
     if b = 1 then
-        Sprite.SetPosition (blackKnightArray (b), 150, 750, true)
-        Sprite.Show (blackKnightArray (b))
+	Sprite.SetPosition (blackKnightArray (b), 150, 750, true)
+	Sprite.Show (blackKnightArray (b))
     end if
     if b = 2 then
-        Sprite.SetPosition (blackKnightArray (b), 650, 750, true)
-        Sprite.Show (blackKnightArray (b))
+	Sprite.SetPosition (blackKnightArray (b), 650, 750, true)
+	Sprite.Show (blackKnightArray (b))
     end if
 end for
 
@@ -96,12 +78,12 @@ var blackBishopArray : array 1 .. 2 of int
 for c : 1 .. 2
     blackBishopArray (c) := Sprite.New (blackBishopIMG)
     if c = 1 then
-        Sprite.SetPosition (blackBishopArray (c), 250, 750, true)
-        Sprite.Show (blackBishopArray (c))
+	Sprite.SetPosition (blackBishopArray (c), 250, 750, true)
+	Sprite.Show (blackBishopArray (c))
     end if
     if c = 2 then
-        Sprite.SetPosition (blackBishopArray (c), 550, 750, true)
-        Sprite.Show (blackBishopArray (c))
+	Sprite.SetPosition (blackBishopArray (c), 550, 750, true)
+	Sprite.Show (blackBishopArray (c))
     end if
 end for
 
@@ -116,8 +98,8 @@ var blackKingArray : array 1 .. 1 of int
 for d : 1 .. 1
     blackKingArray (d) := Sprite.New (blackKingIMG)
     if d = 1 then
-        Sprite.SetPosition (blackKingArray (d), 450, 750, true)
-        Sprite.Show (blackKingArray (d))
+	Sprite.SetPosition (blackKingArray (d), 450, 750, true)
+	Sprite.Show (blackKingArray (d))
     end if
    
 end for
@@ -133,8 +115,8 @@ var blackQueenArray : array 1 .. 1 of int
 for e : 1 .. 1
     blackQueenArray (e) := Sprite.New (blackQueenIMG)
     if e = 1 then
-        Sprite.SetPosition (blackQueenArray (e), 350, 750, true)
-        Sprite.Show (blackQueenArray (e))
+	Sprite.SetPosition (blackQueenArray (e), 350, 750, true)
+	Sprite.Show (blackQueenArray (e))
     end if
    
 end for
@@ -150,12 +132,12 @@ var whiteRookArray : array 1 .. 2 of int
 for f : 1 .. 2
     whiteRookArray (f) := Sprite.New (whiteRookIMG)
     if f = 1 then
-        Sprite.SetPosition (whiteRookArray (f), 50, 50, true)
-        Sprite.Show (whiteRookArray (f))
+	Sprite.SetPosition (whiteRookArray (f), 50, 50, true)
+	Sprite.Show (whiteRookArray (f))
     end if
     if f = 2 then
-        Sprite.SetPosition (whiteRookArray (f), 750, 50, true)
-        Sprite.Show (whiteRookArray (f))
+	Sprite.SetPosition (whiteRookArray (f), 750, 50, true)
+	Sprite.Show (whiteRookArray (f))
     end if
 end for
 
@@ -170,12 +152,12 @@ var whiteKnightArray : array 1 .. 2 of int
 for g : 1 .. 2
     whiteKnightArray (g) := Sprite.New (whiteKnightIMG)
     if g = 1 then
-        Sprite.SetPosition (whiteKnightArray (g), 150, 50, true)
-        Sprite.Show (whiteKnightArray (g))
+	Sprite.SetPosition (whiteKnightArray (g), 150, 50, true)
+	Sprite.Show (whiteKnightArray (g))
     end if
     if g = 2 then
-        Sprite.SetPosition (whiteKnightArray (g), 650, 50, true)
-        Sprite.Show (whiteKnightArray (g))
+	Sprite.SetPosition (whiteKnightArray (g), 650, 50, true)
+	Sprite.Show (whiteKnightArray (g))
     end if
 end for
 
@@ -190,12 +172,12 @@ var whiteBishopArray : array 1 .. 2 of int
 for j : 1 .. 2
     whiteBishopArray (j) := Sprite.New (whiteBishopIMG)
     if j = 1 then
-        Sprite.SetPosition (whiteBishopArray (j), 250, 50, true)
-        Sprite.Show (whiteBishopArray (j))
+	Sprite.SetPosition (whiteBishopArray (j), 250, 50, true)
+	Sprite.Show (whiteBishopArray (j))
     end if
     if j = 2 then
-        Sprite.SetPosition (whiteBishopArray (j), 550, 50, true)
-        Sprite.Show (whiteBishopArray (j))
+	Sprite.SetPosition (whiteBishopArray (j), 550, 50, true)
+	Sprite.Show (whiteBishopArray (j))
     end if
 end for
 
@@ -210,8 +192,8 @@ var whiteKingArray : array 1 .. 1 of int
 for k : 1 .. 1
     whiteKingArray (k) := Sprite.New (whiteKingIMG)
     if k = 1 then
-        Sprite.SetPosition (whiteKingArray (k), 450, 50, true)
-        Sprite.Show (whiteKingArray (k))
+	Sprite.SetPosition (whiteKingArray (k), 450, 50, true)
+	Sprite.Show (whiteKingArray (k))
     end if
    
 end for
@@ -227,8 +209,8 @@ var whiteQueenArray : array 1 .. 1 of int
 for g : 1 .. 1
     whiteQueenArray (g) := Sprite.New (whiteQueenIMG)
     if g = 1 then
-        Sprite.SetPosition (whiteQueenArray (g), 350, 50, true)
-        Sprite.Show (whiteQueenArray (g))
+	Sprite.SetPosition (whiteQueenArray (g), 350, 50, true)
+	Sprite.Show (whiteQueenArray (g))
     end if
    
 end for
