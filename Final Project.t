@@ -34,7 +34,7 @@ loop
     loop
 	exit when moveDone = true 
 	put "Enter your move (or \"help\" for help): "..
-	get tempInput:*
+	get tempInput
 	if Str.Lower(tempInput) = "help" then
 	    include "help.t"
 	else
