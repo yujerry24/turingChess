@@ -1,5 +1,7 @@
 function isValidNotation (inputString : string) : boolean
-    if index ("KQRBNP", inputString (1)) = 0 then
+    if not length (inputString) = 3 then
+	result false
+    elsif index ("KQRBNP", inputString (1)) = 0 then
 	result false
     elsif index ("ABCDEFGH", inputString (2)) = 0 then
 	result false
