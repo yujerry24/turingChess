@@ -1,7 +1,7 @@
-% Chess Program
+%Chess Program
 
 
-% The display screen format
+%The display screen format
 setscreen ("graphics:max;max,nobuttonbar")
 
 %Game over tracking variable
@@ -27,6 +27,8 @@ include "imageImport.t"
 
 include "spriteArrays.t"
 
+include "pieceArrayInit.t"
+
 include "isValidNotation.t"
 
 include "isValidMove.t"
@@ -42,11 +44,13 @@ loop
     else
 	loop
 	    movement := Str.Upper (tempInput)
-	    exit when isValidNotation (movement) and doMove (movement, whiteToMove)
+	    exit when isValidNotation (movement) and not doMove (movement, whiteToMove, pieceArray) = pieceArray
 	    cls
 	    put "Invalid move. Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
 	end loop
+	pieceArray := doMove (movement, whiteToMove, grid)
+	%include "drawBoard.t"
 	whiteToMove := not whiteToMove
     end if
 end loop
