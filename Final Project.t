@@ -27,18 +27,19 @@ include "imageImport.t"
 
 include "spriteArrays.t"
 
-include "Movement.t"
+include "isValidNotation.t"
+
 loop
     exit when gameOver = true
     %White moves first
     loop
 	exit when moveDone = true 
 	put "Enter your move (or \"help\" for help): "..
-	get tempInput:*
+	get tempInput
 	if Str.Lower(tempInput) = "help" then
 	    include "help.t"
 	else
-	    %Validate and move here
+	    get movement
 	end if
     end loop
 end loop
