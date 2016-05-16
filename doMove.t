@@ -5,4 +5,5 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     end if
     %Resolve any ambiguities
     %Perform move and return true if success
+    result pieceArray
 end doMove
