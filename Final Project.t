@@ -11,13 +11,13 @@ var gameOver : boolean := false
 var tempInput : string
 var moveDone : boolean := false
 
-% Movement variables
-
+%Movement variables
 var movement : string
 var letterMovement : int
 letterMovement := 0
 var numberMovement : int
 numberMovement := 0
+var whiteToMove : boolean := true
 
 var font1 : int
 font1 := Font.New ("MS Serif:33:Bold")
@@ -29,24 +29,24 @@ include "spriteArrays.t"
 
 include "isValidNotation.t"
 
+include "isValidMove.t"
+
+include "doMove.t"
+
 loop
     exit when gameOver = true
-    %White moves first
-    loop
-	exit when moveDone = true
-	put "Enter your move (or \"help\" for help): " ..
-	get tempInput:*
-	if Str.Lower (tempInput) = "help" then
-	    include "help.t"
-	else
-	    loop
-		movement := Str.Upper(tempInput)
-		exit when isValidNotation(movement)
-		cls
-		put "Invalid move. Enter your move (or \"help\" for help): "..
-		get tempInput:*
-	    end loop
-	    %Move
-	end if
-    end loop
+    put "Enter your move (or \"help\" for help): " ..
+    get tempInput : *
+    if Str.Lower (tempInput) = "help" then
+	include "help.t"
+    else
+	loop
+	    movement := Str.Upper (tempInput)
+	    exit when isValidNotation (movement) and doMove (movement, whiteToMove)
+	    cls
+	    put "Invalid move. Enter your move (or \"help\" for help): " ..
+	    get tempInput : *
+	end loop
+	whiteToMove := not whiteToMove
+    end if
 end loop
