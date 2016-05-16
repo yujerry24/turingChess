@@ -17,7 +17,7 @@ var movement : string
 var letterMovement : int
 letterMovement := 0
 var numberMovement : int
-numberMovement:=0
+numberMovement := 0
 
 var font1 : int
 font1 := Font.New ("MS Serif:33:Bold")
@@ -33,13 +33,20 @@ loop
     exit when gameOver = true
     %White moves first
     loop
-	exit when moveDone = true 
-	put "Enter your move (or \"help\" for help): "..
-	get tempInput
-	if Str.Lower(tempInput) = "help" then
+	exit when moveDone = true
+	put "Enter your move (or \"help\" for help): " ..
+	get tempInput:*
+	if Str.Lower (tempInput) = "help" then
 	    include "help.t"
 	else
-	    get movement
+	    loop
+		movement := Str.Upper(tempInput)
+		exit when isValidNotation(movement)
+		cls
+		put "Invalid move. Enter your move (or \"help\" for help): "..
+		get tempInput:*
+	    end loop
+	    %Move
 	end if
     end loop
 end loop
