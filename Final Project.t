@@ -26,8 +26,6 @@ Font.Draw ("Chess 2-Player", maxx div 2, maxy - 100, font1, black)
 
 include "imageImport.t"
 
-include "spriteArrays.t"
-
 include "pieceArrayInit.t"
 
 include "isValidNotation.t"
@@ -38,9 +36,12 @@ include "compareArray.t"
 
 include "doMove.t"
 
+include "drawBoard.t"
+
 Font.Draw ("Turing Chess", maxx div 2, maxy - 50, font1, black)
 
 loop
+    drawBoard(pieceArray)
     exit when gameOver = true
     put "Enter your move (or \"help\" for help): " ..
     get tempInput : *
@@ -49,13 +50,12 @@ loop
     else
 	loop
 	    movement := Str.Upper (tempInput)
-	    exit when isValidNotation (movement) and not compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
-	    cls
+	    exit when isValidNotation (movement) and compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
+	    drawBoard(pieceArray) %No CLS because drawBoard includes CLS
 	    put "Invalid move. Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
 	end loop
 	pieceArray := doMove (movement, whiteToMove, pieceArray)
-	%include "drawBoard.t"
 	whiteToMove := not whiteToMove
     end if
 end loop
