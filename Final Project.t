@@ -30,8 +30,6 @@ include "pieceArrayInit.t"
 
 include "isValidNotation.t"
 
-include "isValidMove.t"
-
 include "compareArray.t"
 
 include "doMove.t"
@@ -50,7 +48,7 @@ loop
     else
 	loop
 	    movement := Str.Upper (tempInput)
-	    exit when isValidNotation (movement) and compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
+	    exit when isValidNotation (movement) and not compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
 	    drawBoard(pieceArray) %No CLS because drawBoard includes CLS
 	    put "Invalid move. Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
