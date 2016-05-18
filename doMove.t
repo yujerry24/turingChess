@@ -19,16 +19,18 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	pawnCheck := 1
 	teamNumber := 20
     end if
-    
+
     %Actually do the move
     if move (1) = "P" then
-	if not pieceArray(ypos - pawnCheck, xpos) = teamNumber + 1 then
+	if not pieceArray (ypos - pawnCheck, xpos) = teamNumber + 1 then
 	    result pieceArray
 	else
-	    returnArray(ypos, xpos) := teamNumber + 1
-	    returnArray(ypos - pawnCheck, xpos) := 30
+	    returnArray (ypos, xpos) := teamNumber + 1
+	    returnArray (ypos - pawnCheck, xpos) := 30
 	    result returnArray
 	end if
+    elsif move (1) = "R" then
+	
     end if
     result pieceArray
 end doMove
