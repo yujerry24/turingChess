@@ -53,7 +53,8 @@ procedure Quit
     cls
     put "You have ended the program."
     delay (1000)
-    assert 1 = 0
+    %Misha's way of exiting the program
+    assert 2 + 2 = 5
 end Quit
 
 % Create a Button that reads "Say Hello" at lower left corner (100,100)
