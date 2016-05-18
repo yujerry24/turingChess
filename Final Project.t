@@ -39,7 +39,7 @@ include "drawBoard.t"
 Font.Draw ("Turing Chess", maxx div 2, maxy - 50, font1, black)
 
 loop
-    drawBoard(pieceArray)
+    drawBoard (pieceArray)
     exit when gameOver = true
     put "Enter your move (or \"help\" for help): " ..
     get tempInput : *
@@ -49,7 +49,7 @@ loop
 	loop
 	    movement := Str.Upper (tempInput)
 	    exit when isValidNotation (movement) and not compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
-	    drawBoard(pieceArray) %No CLS because drawBoard includes CLS
+	    drawBoard (pieceArray) %No CLS because drawBoard includes CLS
 	    put "Invalid move. Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
 	end loop
