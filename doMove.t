@@ -4,6 +4,8 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var destination : int := pieceArray (ypos, xpos)
     var pawnCheck : int := -1
     var teamNumber : int := 10
+    var pieceFound : boolean := false
+    var pieceFoundPos : array 1 .. 2 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray
     %Note: "result pieceArray" basically kills the function
 
@@ -21,16 +23,10 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     end if
 
     %Actually do the move
-    if move (1) = "P" then
-	if not pieceArray (ypos - pawnCheck, xpos) = teamNumber + 1 then
-	    result pieceArray
-	else
-	    returnArray (ypos, xpos) := teamNumber + 1
-	    returnArray (ypos - pawnCheck, xpos) := 30
-	    result returnArray
-	end if
-    elsif move (1) = "R" then
-	
+    if move (1) = "P" then %Pawn movement
+	include "piececode/pawn.t"
+    elsif move (1) = "R" then %Rook movement
+	include "piececode/rook.t"
     end if
     result pieceArray
 end doMove
