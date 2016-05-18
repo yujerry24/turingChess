@@ -5,7 +5,7 @@ Turing Chess image import code
 % Chess board image
 var chessImg : int
 chessImg := Pic.FileNew ("images/emptyBoard.jpg")
-chessImg := Pic.Scale (chessImg, 400, 400)
+chessImg := Pic.Scale (chessImg, 400,400)
 
 % PAWNS
 
