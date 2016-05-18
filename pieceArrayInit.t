@@ -28,9 +28,4 @@ pieceArray (1, 5) := 26
 for bbb : 1 .. 8
     pieceArray (2, bbb) := 21
 end for
-for i : 1 .. 8
-    for h : 1 .. 8
-	put pieceArray (i, h), "  " ..
-    end for
-    put ""
-end for
+
