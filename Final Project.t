@@ -43,14 +43,14 @@ loop
 	    put "Enter your move (or \"help\" for help): " ..
 	else
 	    exit when isValidNotation (movement) and not compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
-	    drawBoard (pieceArray)     %No CLS because drawBoard includes CLS
+	    drawBoard (pieceArray)
 	    put "Invalid move. Enter your move (or \"help\" for help): " ..
 	end if
 	get tempInput : *
     end loop
     pieceArray := doMove (movement, whiteToMove, pieceArray)
     whiteToMove := not whiteToMove
+    %Play the cool sound
     fork moveSound
-
 end loop
 
