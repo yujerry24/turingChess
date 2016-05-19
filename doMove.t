@@ -1,4 +1,4 @@
-function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
+    function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var xpos : int := index ("ABCDEFGH", move (2))
     var ypos : int := 9 - strint (move (3))
     var destination : int := pieceArray (ypos, xpos)
@@ -7,6 +7,8 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var pieceFound : boolean := false
     var pieceFoundPos : array 1 .. 2 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray
+    var resolveRequired : boolean := false
+    
     %Note: "result pieceArray" basically kills the function
 
     %Check if there is already a piece occupying the space
