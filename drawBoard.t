@@ -1,11 +1,10 @@
 procedure drawBoard (grid : array 1 .. 8, 1 .. 8 of int)
     cls
-    var alphastring : string := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     var font1 : int := Font.New("mono:40")
     Pic.Draw (chessImg, 0, 0, picMerge)
     for i : 1 .. 8
 	Font.Draw(intstr(i), 408, (i-1) * 50 + 8, font1, black)
-	Font.Draw(alphastring(i), (i-1) * 50 + 8, 408, font1, black)
+	Font.Draw("ABCDEFGHIJKLMNOPQRSTUVWXYZ"(i), (i-1) * 50 + 8, 408, font1, black)
     end for
     for x : 1 .. 8
 	for y : 1 .. 8
