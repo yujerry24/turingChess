@@ -6,23 +6,12 @@ setscreen ("graphics:max;max,nobuttonbar")
 
 include "GUIs.t"
 
-%Game over tracking variable
-var gameOver : boolean := false
-
 %Input tracking + validation variables
 var tempInput : string
-var moveDone : boolean := false
 
 %Movement variables
 var movement : string
-var letterMovement : int
-letterMovement := 0
-var numberMovement : int
-numberMovement := 0
 var whiteToMove : boolean := true
-
-
-Font.Draw ("Chess 2-Player", maxx div 2, maxy - 100, font1, black)
 
 include "imageImport.t"
 
@@ -40,7 +29,7 @@ Font.Draw ("Turing Chess", maxx div 2, maxy - 50, font1, black)
 
 loop
     drawBoard (pieceArray)
-    exit when gameOver = true
+    %exit when checkWinner(pieceArray) %Add checkWinner function later
     put "Enter your move (or \"help\" for help): " ..
     get tempInput : *
     if Str.Lower (tempInput) = "help" then
