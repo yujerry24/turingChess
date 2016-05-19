@@ -67,11 +67,6 @@ GUI.SetSize (GUI2, 200, 100)
 GUI.SetSize (GUI3, 200, 100)
 GUI.SetSize (GUI4, 200, 100)
 
-
-
-
 loop
-
     exit when GUI.ProcessEvent
-
 end loop
