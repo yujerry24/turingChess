@@ -1,5 +1,5 @@
 var windowA, windowB, buttonA, buttonB, buttonQuit, backToMainA, backToMainB : int
-var font1 : int
+var font1, font2 : int
 font1 := Font.New ("MS Serif:33:Bold")
 
 Font.Draw ("Turing Chess", maxx div 2, maxy - 50, font1, black)
