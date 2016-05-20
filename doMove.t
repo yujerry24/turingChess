@@ -1,4 +1,4 @@
-include "rookValidation.t"
+include "piececode/rook/rookValidation.t"
 
 function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var xpos : int := index ("ABCDEFGH", move (2))
