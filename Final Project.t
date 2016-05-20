@@ -6,6 +6,9 @@ setscreen ("graphics:max;max,nobuttonbar")
 
 include "GUIs.t"
 
+%Loading text while the dozens of files are importing
+Font.Draw ("LOADING...", maxx div 2, maxy - 50, font1, black)
+
 %Input tracking + validation variables
 var tempInput : string
 
@@ -39,7 +42,7 @@ loop
 	movement := Str.Upper (tempInput)
 	if Str.Lower (tempInput) = "help" then
 	    include "help.t"
-	    drawBoard(pieceArray)
+	    drawBoard (pieceArray)
 	    put "Enter your move (or \"help\" for help): " ..
 	else
 	    exit when isValidNotation (movement) and not compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
