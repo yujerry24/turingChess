@@ -32,7 +32,9 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     elsif move (1) = "R" then %Rook movement
 	include "piececode/rook/rookMain.t"
     elsif move (1) = "K" then %King movement
-	%include "piececode/king.t"
+	include "piececode/king.t"
+    elsif move (1) = "N" then    %King movement
+	include "piececode/knight.t"
     end if
     result pieceArray
 end doMove
