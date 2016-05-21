@@ -49,7 +49,7 @@ loop
 	    drawBoard (pieceArray)
 	    put "Invalid move. Enter your move (or \"help\" for help): " ..
 	end if
-	get tempInput : *
+	 get tempInput : *
     end loop
     pieceArray := doMove (movement, whiteToMove, pieceArray)
     whiteToMove := not whiteToMove
