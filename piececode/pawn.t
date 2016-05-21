@@ -1,3 +1,8 @@
+if not pieceArray (ypos, xpos) = 30 then
+    result pieceArray
+end if
+
+
 if not pieceArray (ypos - pawnCheck, xpos) = teamNumber + 1 then
     if pieceArray (ypos - pawnCheck, xpos) = 30 then
 	if whiteMove and ypos = 5 and pieceArray (ypos - pawnCheck * 2, xpos) = teamNumber + 1 then
