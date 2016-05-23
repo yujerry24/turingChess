@@ -136,7 +136,7 @@ if teamNumber = 20 then
 
 	    elsif pieceArray (ypos - value2, xpos - value2) = 24 and TRDW = true then
 		returnArray (ypos - value2, xpos - value2) := 30
-		returnArray (ypos, xpos) := 14
+		returnArray (ypos, xpos) := 24
 		pieceFound := true
 		result returnArray
 	    else
