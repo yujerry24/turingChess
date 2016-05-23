@@ -10,11 +10,16 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var pieceFoundPos : array 1 .. 2 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray
     var resolveRequired : boolean := false
+    var whiteKingCastle : boolean := true
+    var whiteQueenCastle : boolean := true
+    var blackKingCastle : boolean := true
+    var blackQueenCastle : boolean := true
 
     %Note: "result pieceArray" basically kills the function
 
     %Check if there is already a piece occupying the space
     if intstr (destination) (1) = "2" and not whiteMove then
+	put "whateveer"
 	result pieceArray
     elsif intstr (destination) (1) = "1" and whiteMove then
 	result pieceArray
@@ -33,10 +38,12 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	include "piececode/rook/rookMain.t"
     elsif move (1) = "K" then %King movement
 	include "piececode/king.t"
-    elsif move (1) = "N" then %Knight movement
+    elsif move (1) = "N" then    %King movement
 	include "piececode/knight.t"
-    elsif move (1) = "B" then %Bishop movement
+    elsif move (1) = "B" then         %King movement
 	include "piececode/bishop.t"
+    elsif move (1) = "Q" then              %King movement
+	include "piececode/queen.t"
     end if
     result pieceArray
 end doMove
