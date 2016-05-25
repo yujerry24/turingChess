@@ -1,6 +1,6 @@
 %queen
-%bishop
-put "test"
+%diagonal
+
 var TLDW : boolean := true
 var TRDW : boolean := true
 var BLDW : boolean := true
@@ -75,8 +75,7 @@ if teamNumber = 10 then
 
     end for
 end if
-
-%bishop black
+%black queen diagonal
 var TLDB : boolean := true
 var TRDB : boolean := true
 var BLDB : boolean := true
@@ -147,4 +146,48 @@ if teamNumber = 20 then
 
     end for
 end if
-result pieceArray
+
+
+
+%Find the horizontals
+for x : 1 .. 8 %Look horizontally
+    if pieceArray (ypos, x) = teamNumber + 5 and validQueenMove (pieceArray, ypos, x, ypos, xpos) then
+	if pieceFound then
+	    resolveRequired := true
+	end if
+	pieceFound := true
+	pieceFoundPos (1) := ypos
+	pieceFoundPos (2) := x
+	exit
+    end if
+end for
+
+for y : 1 .. 8 %Vertical movement
+    if pieceArray (y, xpos) = teamNumber + 5 and validQueenMove (pieceArray, y, xpos, ypos, xpos) then
+	if pieceFound then
+	    resolveRequired := true
+	end if
+	pieceFound := true
+	pieceFoundPos (1) := y
+	pieceFoundPos (2) := xpos
+	exit
+    end if
+end for
+
+%Exit if the piece wasn't found
+if not pieceFound then
+    result pieceArray
+end if
+
+%Resolve ambiguous user input
+if resolveRequired then
+    assert 2 + 2 = 5
+    put "Stalemate resolution required"
+end if
+
+%Move the rook
+returnArray (ypos, xpos) := teamNumber + 5
+returnArray (pieceFoundPos (1), pieceFoundPos (2)) := 30
+
+result returnArray
+
