@@ -45,7 +45,9 @@ loop
 	    drawBoard (pieceArray)
 	    put "Enter your move (or \"help\" for help): " ..
 	else
-	    exit when isValidNotation (movement) and not compareArray (doMove (movement, whiteToMove, pieceArray), pieceArray)
+	    comparisonArray := pieceArray
+	    pieceArray := doMove (movement, whiteToMove, pieceArray)
+	    exit when isValidNotation (movement) and not compareArray (comparisonArray, pieceArray)
 	    drawBoard (pieceArray)
 	    put "Invalid move. Enter your move (or \"help\" for help): " ..
 	end if

@@ -1,4 +1,4 @@
-var pieceArray : array 1 .. 8, 1 .. 8 of int
+var pieceArray, comparisonArray : array 1 .. 8, 1 .. 8 of int
 var boardControlArray : array 1 .. 8, 1 .. 8 of int
 for ii : 1 .. 8
     for hh : 1 .. 8
