@@ -43,7 +43,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     elsif move (1) = "B" then         %King movement
 	include "piececode/bishop.t"
     elsif move (1) = "Q" then              %King movement
-	include "piececode/queen.t"
+	include "piececode/queen/queen.t"
     end if
     result pieceArray
 end doMove
