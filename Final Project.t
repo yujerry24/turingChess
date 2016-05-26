@@ -109,6 +109,24 @@ loop
 
 	    end loop
 	    if Str.Lower (movement) = "exit" then
+		whiteToMove := true
+		tempArray := resetBoard (pieceArray)
+		cls
+		drawBoard (tempArray)
+		pieceArray := tempArray
+		cls
+		Sprite.Show (backgroundSPR)
+
+		Font.Draw ("Turing Chess", maxx div 2 - 120, maxy - 100, font1, black)
+
+		drawbox (maxx div 2 - 120, maxy - 250, maxx div 2 + 120, maxy - 150, black)
+		Font.Draw ("Play Game", maxx div 2 - 100, maxy - 220, font1, black)
+		drawbox (maxx div 2 - 120, maxy - 400, maxx div 2 + 120, maxy - 300, black)
+		Font.Draw ("How To Play", maxx div 2 - 110, maxy - 360, font1, black)
+		drawbox (maxx div 2 - 120, maxy - 550, maxx div 2 + 120, maxy - 450, black)
+		Font.Draw ("Scoreboard", maxx div 2 - 100, maxy - 525, font1, black)
+		drawbox (maxx div 2 - 120, maxy - 650, maxx div 2 + 120, maxy - 575, black)
+		Font.Draw ("Quit", maxx div 2 - 40, maxy - 622, font1, black)
 		exit
 	    end if
 	    pieceArray := doMove (movement, whiteToMove, pieceArray)
