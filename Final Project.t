@@ -65,7 +65,7 @@ loop
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
 	    put "Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
-	    if tempInput = "exit" then
+	    if Str.Lower (tempInput) = "exit" then
 		whiteToMove := true
 		tempArray := resetBoard (pieceArray)
 		cls
@@ -94,15 +94,23 @@ loop
 		    drawBoard (pieceArray)
 		    put "Enter your move (or \"help\" for help): " ..
 		else
-		    comparisonArray := pieceArray
-		    pieceArray := doMove (movement, whiteToMove, pieceArray)
-		    exit when isValidNotation (movement) and not compareArray (comparisonArray, pieceArray)
+		    if movement = "EXIT" or movement = "exit" then
+			exit
+		    end if
+		    if isValidNotation (movement) then
+			comparisonArray := pieceArray
+			pieceArray := doMove (movement, whiteToMove, pieceArray)
+			exit when not compareArray (comparisonArray, pieceArray)
+		    end if
 		    drawBoard (pieceArray)
 		    put "Invalid move. Enter your move (or \"help\" for help): " ..
 		end if
 		get tempInput : *
 
 	    end loop
+	    if Str.Lower (movement) = "exit" then
+		exit
+	    end if
 	    pieceArray := doMove (movement, whiteToMove, pieceArray)
 	    whiteToMove := not whiteToMove
 	    %Play the cool sound
@@ -113,11 +121,11 @@ loop
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 400 and y < maxy - 300 then
 	Sprite.Hide (backgroundSPR)
 	cls
-	Font.Draw ("Turing Chess", maxx div 2 - 120, maxy - 100, font1, black)
-	drawbox (maxx div 2 - 120, maxy - 650, maxx div 2 + 120, maxy - 575, black)
+	Font.Draw ("How To Play", maxx div 2 - 120, maxy - 100, font1, black)
+	drawbox (maxx div 2 - 120, maxy - 690, maxx div 2 + 120, maxy - 615, black)
 	loop
 	    buttonwait ("down", x, y, notused1, notused2)
-	    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 650 and y < maxy - 570 then
+	    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 690 and y < maxy - 615 then
 		cls
 		Sprite.Show (backgroundSPR)
 		Font.Draw ("Turing Chess", maxx div 2 - 120, maxy - 100, font1, black)
@@ -129,6 +137,8 @@ loop
 		Font.Draw ("Scoreboard", maxx div 2 - 100, maxy - 525, font1, black)
 		drawbox (maxx div 2 - 120, maxy - 650, maxx div 2 + 120, maxy - 575, black)
 		Font.Draw ("Quit", maxx div 2 - 40, maxy - 622, font1, black)
+		x := maxx + 121
+		y := maxy + 121
 		exit
 	    end if
 	end loop
@@ -136,11 +146,11 @@ loop
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 550 and y < maxy - 450 then
 	Sprite.Hide (backgroundSPR)
 	cls
-	Font.Draw ("Turing Chess", maxx div 2 - 120, maxy - 100, font1, black)
-	drawbox (maxx div 2 - 120, maxy - 650, maxx div 2 + 120, maxy - 575, black)
+	Font.Draw ("Scoreboard", maxx div 2 - 120, maxy - 100, font1, black)
+	drawbox (maxx div 2 - 120, maxy - 690, maxx div 2 + 120, maxy - 615, black)
 	loop
 	    buttonwait ("down", x, y, notused1, notused2)
-	    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 650 and y < maxy - 570 then
+	    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 690 and y < maxy - 615 then
 		cls
 		Sprite.Show (backgroundSPR)
 		Font.Draw ("Turing Chess", maxx div 2 - 120, maxy - 100, font1, black)
@@ -152,18 +162,21 @@ loop
 		Font.Draw ("Scoreboard", maxx div 2 - 100, maxy - 525, font1, black)
 		drawbox (maxx div 2 - 120, maxy - 650, maxx div 2 + 120, maxy - 575, black)
 		Font.Draw ("Quit", maxx div 2 - 40, maxy - 622, font1, black)
+		x := maxx + 121
+		y := maxy + 121
 		exit
 	    end if
 	end loop
 
     end if
-    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 700 and y < maxy - 570 then
-	Sprite.Hide(backgroundSPR)
+    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 650 and y < maxy - 575 then
+	Sprite.Hide (backgroundSPR)
 	cls
 	Font.Draw ("Thanks for Playing!", maxx div 2, maxy div 2, font1, black)
 
 	delay (2000)
-	Window.Close (defWinID)
+	Window.Close (defWinId)
+
     end if
 end loop
 
