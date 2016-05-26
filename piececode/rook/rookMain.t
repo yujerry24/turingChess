@@ -5,6 +5,8 @@ for x : 1 .. 8 %Look horizontally
     if pieceArray (ypos, x) = teamNumber + 2 and validRookMove (pieceArray, ypos, x, ypos, xpos) then
 	if pieceFound then
 	    resolveRequired := true
+	    pieceFound2Pos(1) := ypos
+	    pieceFound2Pos(2) := x
 	end if
 	pieceFound := true
 	pieceFoundPos (1) := ypos
@@ -17,6 +19,8 @@ for y : 1 .. 8 %Look vertically
     if pieceArray (y, xpos) = teamNumber + 2 and validRookMove (pieceArray, y, xpos, ypos, xpos) then
 	if pieceFound then
 	    resolveRequired := true
+	    pieceFound2Pos (1) := y
+	    pieceFound2Pos (2) := xpos
 	end if
 	pieceFound := true
 	pieceFoundPos (1) := y
@@ -32,8 +36,7 @@ end if
 
 %Resolve ambiguous user input
 if resolveRequired then
-    assert 2 + 2 = 5
-    put "Stalemate resolution required"
+    put "Move could refer to multiple pieces."
 end if
 
 %Move the rook

@@ -10,12 +10,15 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var teamNumber : int := 10
     var pieceFound : boolean := false
     var pieceFoundPos : array 1 .. 2 of int
+    var pieceFound2Pos : array 1 .. 2 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray
     var resolveRequired : boolean := false
     var whiteKingCastle : boolean := true
     var whiteQueenCastle : boolean := true
     var blackKingCastle : boolean := true
     var blackQueenCastle : boolean := true
+    var resolveString : string
+    var resolvePos : int
 
     %Note: "result pieceArray" basically kills the function
 
