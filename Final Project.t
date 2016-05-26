@@ -45,9 +45,9 @@ include "isValidNotation.t"
 
 include "compareArray.t"
 
-include "doMove.t"
-
 include "drawBoard.t"
+
+include "doMove.t"
 
 include "clearBoard.t"
 process moveSound

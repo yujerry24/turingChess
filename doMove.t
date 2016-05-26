@@ -17,6 +17,8 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var whiteQueenCastle : boolean := true
     var blackKingCastle : boolean := true
     var blackQueenCastle : boolean := true
+    
+    %Variables for resolving ambiguity
     var resolveString : string
     var resolvePos : int
 
@@ -24,7 +26,6 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 
     %Check if there is already a piece occupying the space
     if intstr (destination) (1) = "2" and not whiteMove then
-	put "whateveer"
 	result pieceArray
     elsif intstr (destination) (1) = "1" and whiteMove then
 	result pieceArray
