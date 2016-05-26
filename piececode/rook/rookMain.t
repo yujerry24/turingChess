@@ -37,6 +37,9 @@ end if
 %Resolve ambiguous user input
 if resolveRequired then
     put "Move could refer to multiple pieces."
+    if not pieceFoundPos(1) = pieceFound2Pos(1) and not pieceFoundPos(2) = pieceFound2Pos(2) then
+	    
+    end if
 end if
 
 %Move the rook
