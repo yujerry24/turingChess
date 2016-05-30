@@ -27,9 +27,6 @@ Font.Draw ("Scoreboard", maxx div 2 - 100, maxy - 525, font1, black)
 drawbox (maxx div 2 - 120, maxy - 650, maxx div 2 + 120, maxy - 575, black)
 Font.Draw ("Quit", maxx div 2 - 40, maxy - 622, font1, black)
 
-%Loading text while the dozens of files are importing
-
-
 %Input tracking + validation variables
 var tempInput : string
 
@@ -56,6 +53,8 @@ end moveSound
 
 loop
     buttonwait ("down", x, y, notused1, notused2)
+    %Loading text while the dozens of files are importing
+    Font.Draw ("LOADING...", maxx div 2 - 120, maxy - 100, font1, black)
     %If mouse was clicked within the green box, show image
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 250 and y < maxy - 150 then
 	Sprite.Hide (backgroundSPR)
