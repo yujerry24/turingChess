@@ -1,7 +1,8 @@
 %Chess Program
 import GUI
 setscreen ("graphics:max;max,nobuttonbar")
-
+var blackScore : int := 0
+var whiteScore : int := 0
 %Clicking Buttons
 var x, y, notused1, notused2 : int
 var tempArray : array 1 .. 8, 1 .. 8 of int
@@ -27,13 +28,17 @@ Font.Draw ("Scoreboard", maxx div 2 - 100, maxy - 525, font1, black)
 drawbox (maxx div 2 - 120, maxy - 650, maxx div 2 + 120, maxy - 575, black)
 Font.Draw ("Quit", maxx div 2 - 40, maxy - 622, font1, black)
 
+%Loading text while the dozens of files are importing
+
+
 %Input tracking + validation variables
 var tempInput : string
 
 %Movement variables
 var movement : string
 var whiteToMove : boolean := true
-
+include "calculateBlackScore.t"
+include "calculateWhiteScore.t"
 include "imageImport.t"
 
 include "pieceArrayInit.t"
@@ -53,14 +58,16 @@ end moveSound
 
 loop
     buttonwait ("down", x, y, notused1, notused2)
-    %Loading text while the dozens of files are importing
-    Font.Draw ("LOADING...", maxx div 2 - 120, maxy - 100, font1, black)
     %If mouse was clicked within the green box, show image
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 250 and y < maxy - 150 then
 	Sprite.Hide (backgroundSPR)
+
 	loop
 	    drawBoard (pieceArray)
-
+	    Font.Draw ("Black Points", maxx div 2 - 500, maxy div 2 + 350, font1, black)
+	    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
+	    Font.Draw (intstr (blackScore), maxx div 2 - 400, maxy div 2 + 250, font1, black)
+	    Font.Draw (intstr (whiteScore), maxx div 2 - 100, maxy div 2 + 250, font1, black)
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
 	    put "Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
@@ -70,6 +77,9 @@ loop
 		cls
 		drawBoard (tempArray)
 		pieceArray := tempArray
+		   blackScore := calculateBlackScore (pieceArray)
+      
+	    whiteScore := calculateWhiteScore (pieceArray)
 		cls
 		Sprite.Show (backgroundSPR)
 
@@ -91,6 +101,10 @@ loop
 		if Str.Lower (tempInput) = "help" then
 		    include "help.t"
 		    drawBoard (pieceArray)
+		    Font.Draw ("Black Points", maxx div 2 - 500, maxy div 2 + 350, font1, black)
+		    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
+		    Font.Draw (intstr (blackScore), maxx div 2 - 400, maxy div 2 + 250, font1, black)
+		    Font.Draw (intstr (whiteScore), maxx div 2 - 100, maxy div 2 + 250, font1, black)
 		    put "Enter your move (or \"help\" for help): " ..
 		else
 		    if movement = "EXIT" or movement = "exit" then
@@ -103,7 +117,13 @@ loop
 		    end if
 		    drawBoard (pieceArray)
 		    put "Invalid move. Enter your move (or \"help\" for help): " ..
+		    Font.Draw ("Black Points", maxx div 2 - 500, maxy div 2 + 350, font1, black)
+		    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
+		    Font.Draw (intstr (blackScore), maxx div 2 - 400, maxy div 2 + 250, font1, black)
+		    Font.Draw (intstr (whiteScore), maxx div 2 - 100, maxy div 2 + 250, font1, black)
 		end if
+
+
 		get tempInput : *
 
 	    end loop
@@ -132,6 +152,10 @@ loop
 	    whiteToMove := not whiteToMove
 	    %Play the cool sound
 	    fork moveSound
+	    blackScore := calculateBlackScore (pieceArray)
+      
+	    whiteScore := calculateWhiteScore (pieceArray)
+
 
 	end loop
     end if
