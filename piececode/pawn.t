@@ -4,7 +4,7 @@ var t3 : int := xpos + 1
 var t4 : int := xpos - 1
 if teamNumber = 10 then
     if pieceArray (ypos, xpos) = 21 or pieceArray (ypos, xpos) = 22 or pieceArray (ypos, xpos) = 23 or pieceArray (ypos, xpos) = 24 or pieceArray (ypos, xpos) = 25 then
-	if t1 <= 8 and t1 >= 81 and t4 <= 8 and t4 >= 1 then
+	if t1 <= 8 and t1 >= 1 and t4 <= 8 and t4 >= 1 then
 	    if pieceArray (ypos + 1, xpos - 1) = 11 then
 		returnArray (ypos + 1, xpos - 1) := 30
 		returnArray (ypos, xpos) := 11
