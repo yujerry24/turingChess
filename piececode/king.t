@@ -247,7 +247,7 @@ if ypos <= 7 and ypos >= 1 and xpos <= 7 and xpos >= 1 then
 	    pieceFound := true
 	end if
     end if
-    
+
 end if
 if pieceFound = true and returnArray (ypos, xpos) = 26 then
     blackKingCastle := false
@@ -271,6 +271,7 @@ if ypos = 8 and xpos = 3 and whiteQueenCastle = true and pieceArray (8, 1) = 12 
     returnArray (8, 2) := 30
     returnArray (8, 3) := 16
     returnArray (8, 4) := 12
+    returnArray (8, 5) := 30
     whiteKingCastle := false
     whiteQueenCastle := false
     pieceFound := true
@@ -284,11 +285,13 @@ if ypos = 1 and xpos = 7 and blackKingCastle = true and pieceArray (1, 6) = 30 a
     blackQueenCastle := false
     pieceFound := true
 end if
-if ypos = 1 and xpos = 3 and blackQueenCastle = true and pieceArray (1, 1) = 12 and pieceArray (1, 2) = 30 and pieceArray (1, 3) = 30 and pieceArray (1, 4) = 30 then
+if ypos = 1 and xpos = 3 and blackQueenCastle = true and pieceArray (1, 1) = 22 and pieceArray (1, 2) = 30 and pieceArray (1, 3) = 30 and pieceArray (1, 4) = 30 then
     returnArray (1, 1) := 30
     returnArray (1, 2) := 30
-    returnArray (1, 3) := 16
-    returnArray (1, 4) := 12
+    returnArray (1, 3) := 26
+    returnArray (1, 4) := 22
+    returnArray (1,5) :=30
+    
     blackKingCastle := false
     blackQueenCastle := false
     pieceFound := true
