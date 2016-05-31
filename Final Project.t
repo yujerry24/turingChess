@@ -3,6 +3,8 @@ import GUI
 setscreen ("graphics:max;max,nobuttonbar")
 var blackScore : int := 0
 var whiteScore : int := 0
+var lastBlackMove : string := "N/A"
+var lastWhiteMove : string := "N/A"
 %Clicking Buttons
 var x, y, notused1, notused2 : int
 var tempArray : array 1 .. 8, 1 .. 8 of int
@@ -68,18 +70,24 @@ loop
 	    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
 	    Font.Draw (intstr (blackScore), maxx div 2 - 400, maxy div 2 + 250, font1, black)
 	    Font.Draw (intstr (whiteScore), maxx div 2 - 100, maxy div 2 + 250, font1, black)
+	    Font.Draw ("Last Black Move", maxx div 2 - 550, maxy div 2 + 150, font1, black)
+	    Font.Draw ("Last White Move", maxx div 2 - 200, maxy div 2 + 150, font1, black)
+	    Font.Draw (lastBlackMove, maxx div 2 - 450, maxy div 2 + 50, font1, black)
+	    Font.Draw (lastWhiteMove, maxx div 2 - 100, maxy div 2 + 50, font1, black)
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
 	    put "Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
 	    if Str.Lower (tempInput) = "exit" then
+		lastWhiteMove := "N/A"
+		lastBlackMove := "N/A"
 		whiteToMove := true
 		tempArray := resetBoard (pieceArray)
 		cls
 		drawBoard (tempArray)
 		pieceArray := tempArray
-		   blackScore := calculateBlackScore (pieceArray)
-      
-	    whiteScore := calculateWhiteScore (pieceArray)
+		blackScore := calculateBlackScore (pieceArray)
+
+		whiteScore := calculateWhiteScore (pieceArray)
 		cls
 		Sprite.Show (backgroundSPR)
 
@@ -105,14 +113,25 @@ loop
 		    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
 		    Font.Draw (intstr (blackScore), maxx div 2 - 400, maxy div 2 + 250, font1, black)
 		    Font.Draw (intstr (whiteScore), maxx div 2 - 100, maxy div 2 + 250, font1, black)
+		    Font.Draw ("Last Black Move", maxx div 2 - 550, maxy div 2 + 150, font1, black)
+		    Font.Draw ("Last White Move", maxx div 2 - 200, maxy div 2 + 150, font1, black)
+		    Font.Draw (lastBlackMove, maxx div 2 - 450, maxy div 2 + 50, font1, black)
+		    Font.Draw (lastWhiteMove, maxx div 2 - 100, maxy div 2 + 50, font1, black)
 		    put "Enter your move (or \"help\" for help): " ..
 		else
 		    if movement = "EXIT" or movement = "exit" then
 			exit
 		    end if
 		    if isValidNotation (movement) then
+			
 			comparisonArray := pieceArray
 			pieceArray := doMove (movement, whiteToMove, pieceArray)
+			if not compareArray (comparisonArray, pieceArray) and whiteToMove = true then
+			    lastWhiteMove := tempInput
+			end if
+			if not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
+			    lastBlackMove := tempInput
+			end if
 			exit when not compareArray (comparisonArray, pieceArray)
 		    end if
 		    drawBoard (pieceArray)
@@ -121,6 +140,10 @@ loop
 		    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
 		    Font.Draw (intstr (blackScore), maxx div 2 - 400, maxy div 2 + 250, font1, black)
 		    Font.Draw (intstr (whiteScore), maxx div 2 - 100, maxy div 2 + 250, font1, black)
+		    Font.Draw ("Last Black Move", maxx div 2 - 550, maxy div 2 + 150, font1, black)
+		    Font.Draw ("Last White Move", maxx div 2 - 200, maxy div 2 + 150, font1, black)
+		    Font.Draw (lastBlackMove, maxx div 2 - 450, maxy div 2 + 50, font1, black)
+		    Font.Draw (lastWhiteMove, maxx div 2 - 100, maxy div 2 + 50, font1, black)
 		end if
 
 
@@ -153,7 +176,7 @@ loop
 	    %Play the cool sound
 	    fork moveSound
 	    blackScore := calculateBlackScore (pieceArray)
-      
+
 	    whiteScore := calculateWhiteScore (pieceArray)
 
 
