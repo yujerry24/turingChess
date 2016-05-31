@@ -59,7 +59,7 @@ if resolveRequired then
 	    get resolveString
 	    cls
 	    drawBoard (pieceArray)
-	    exit when strintok (resolveString) and strint (resolveString) <= 8 and strint (resolveString) > 1 and (strint(resolveString) = pieceFoundPos(1) or strint(resolveString = pieceFound2Pos(1))
+	    exit when strintok (resolveString) and strint (resolveString) <= 8 and strint (resolveString) > 1 and (strint(resolveString) = pieceFoundPos(1) or 9 - strint(resolveString) = pieceFound2Pos(1))
 	    put "Move could refer to multiple pieces."
 	    put "Invalid input. Please enter the row of the piece you want to move: " ..
 	end loop
