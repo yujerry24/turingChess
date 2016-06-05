@@ -264,6 +264,7 @@ loop
 	cls
 	Font.Draw ("Scoreboard", maxx div 2 - 120, maxy - 100, font1, black)
 	drawbox (maxx div 2 - 120, maxy - 690, maxx div 2 + 120, maxy - 615, black)
+	Font.Draw ("Back", maxx div 2 - 60, maxy - 670, font1, black)
 	loop
 	    buttonwait ("down", x, y, notused1, notused2)
 	    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 690 and y < maxy - 615 then
