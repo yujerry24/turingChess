@@ -1,150 +1,66 @@
-var ver1 : int := 0
-var ver2 : int := 0
-var ver3 : int := 0
-var ver4 : int := 0
-var ver5 : int := 0
-var ver6 : int := 0
-var ver7 : int := 0
-var ver8 : int := 0
-% 8 Different possible move places relative to the knight position
-ver1 := ypos + 2
-ver2 := ypos - 2
-ver3 := ypos + 1
-ver4 := ypos - 1
-ver5 := xpos + 2
-ver6 := xpos - 2
-ver7 := xpos + 1
-ver8 := xpos - 1
+%White knight move
+%Checks if target position is blank or occupied by enemy piece
+if pieceArray (ypos, xpos) = 30 then
+    for y : -2 .. 2
+	for x : -2 .. 2
+	    if (abs (y) = 1 and abs (x) = 2) or (abs (y) = 2 and abs (x) = 1) then
+		if (ypos + y <= 8 and ypos + y >= 1) and (xpos + x <= 8 and xpos + x >= 1) then
+		    if pieceArray (ypos + y, xpos + x) = teamNumber + 3 then
+			if not pieceFound then
+			    pieceFound := true
+			    pieceFoundPos (1) := ypos + y
+			    pieceFoundPos (2) := xpos + x
+			else
+			    resolveRequired := true
+			    pieceFound2Pos (1) := ypos + y
+			    pieceFound2Pos (2) := xpos + x
+			    exit %Don't bother continuing, both knights found.
+			end if
+		    end if
+		end if
+	    end if
+	end for
+    end for
+end if
 
-%White knight move 
-if teamNumber = 10 then
-    %Checks if target position is blank or occupied by enemy piece
-    if pieceArray (ypos, xpos) = 30 or pieceArray (ypos, xpos) = 21 or pieceArray (ypos, xpos) = 22 or pieceArray (ypos, xpos) = 23 or pieceArray (ypos, xpos) = 24 or pieceArray (ypos, xpos) = 25 then
-	% Check if position 1 is available
-	if ver1 <= 8 and ver1 >= 1 and ver7 <= 8 and ver7 >= 1 then
-	    if pieceArray (ypos + 2, xpos + 1) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos + 2, xpos + 1) := 30
-		pieceFound := true
-	    end if
+%Resolve ambiguous user input
+if resolveRequired then
+    cls
+    drawBoard (pieceArray)
+    put "Move could refer to multiple pieces."
+    if not pieceFoundPos (2) = pieceFound2Pos (2) then
+	put "Please enter the column of the piece you want to move: " ..
+	loop
+	    get resolveString
+	    resolveString := Str.Upper (resolveString)
+	    cls
+	    drawBoard (pieceArray)
+	    exit when index ("ABCDEFGH", resolveString) > 0 and (index ("ABCDEFGH", resolveString) = pieceFoundPos (2) or index ("ABCDEFGH", resolveString) = pieceFound2Pos (2))
+	    put "Move could refer to multiple pieces."
+	    put "Invalid input. Please enter the column of the piece you want to move: " ..
+	end loop
+	if pieceFound2Pos (2) = index ("ABCDEFGH", resolveString) then
+	    pieceFoundPos := pieceFound2Pos
 	end if
-	% Check if position 2 is available
-	if ver1 <= 8 and ver1 >= 1 and ver8 <= 8 and ver8 >= 1 then
-	    if pieceArray (ypos + 2, xpos - 1) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos + 2, xpos - 1) := 30
-		pieceFound := true
-	    end if
-	end if
-	% Check if position 3 is available
-	if ver2 <= 8 and ver2 >= 1 and ver8 <= 8 and ver8 >= 1 then
-	    if pieceArray (ypos - 2, xpos - 1) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos - 2, xpos - 1) := 30
-		pieceFound := true
-	    end if
-	end if
-	% Check if position 4 is available
-	if ver2 <= 8 and ver2 >= 1 and ver7 <= 8 and ver7 >= 1 then
-	    if pieceArray (ypos - 2, xpos + 1) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos - 2, xpos + 1) := 30
-		pieceFound := true
-	    end if
-	end if
-	% Check if position 5 is available
-	if ver3 <= 8 and ver3 >= 1 and ver6 <= 8 and ver6 >= 1 then
-	    if pieceArray (ypos + 1, xpos - 2) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos + 1, xpos - 2) := 30
-		pieceFound := true
-	    end if
-	end if
-	% Check if position 6 is available
-	if ver4 <= 8 and ver4 >= 1 and ver6 <= 8 and ver6 >= 1 then
-	    if pieceArray (ypos - 1, xpos - 2) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos - 1, xpos - 2) := 30
-		pieceFound := true
-	    end if
-	end if
-	% Check if position 7 is available
-	if ver3 <= 8 and ver3 >= 1 and ver5 <= 8 and ver5 >= 1 then
-	    if pieceArray (ypos + 1, xpos + 2) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos + 1, xpos + 2) := 30
-		pieceFound := true
-	    end if
-	end if
-	% Check if position 8 is available
-	if ver4 <= 8 and ver4 >= 1 and ver5 <= 8 and ver5 >= 1 then
-	    if pieceArray (ypos - 1, xpos + 2) = 13 then
-		returnArray (ypos, xpos) := 13
-		returnArray (ypos - 1, xpos + 2) := 30
-		pieceFound := true
-	    end if
+    else
+	put "Please enter the row of the piece you want to move: " ..
+	loop
+	    get resolveString
+	    cls
+	    drawBoard (pieceArray)
+	    exit when strintok (resolveString) and strint (resolveString) <= 8 and strint (resolveString) >= 1 and (strint(resolveString) = 9 - pieceFoundPos(1) or strint(resolveString) = 9 - pieceFound2Pos(1))
+	    put "Move could refer to multiple pieces."
+	    put "Invalid input. Please enter the row of the piece you want to move: " ..
+	end loop
+	if 9 - pieceFound2Pos (2) = strint (resolveString) then
+	    pieceFoundPos := pieceFound2Pos
 	end if
     end if
 end if
-if teamNumber = 20 then
-    if pieceArray (ypos, xpos) = 30 or pieceArray (ypos, xpos) = 11 or pieceArray (ypos, xpos) = 12 or pieceArray (ypos, xpos) = 13 or pieceArray (ypos, xpos) = 14 or pieceArray (ypos, xpos) = 15 then
-	if ver1 <= 8 and ver1 >= 1 and ver7 <= 8 and ver7 >= 1 then
-	    if pieceArray (ypos + 2, xpos + 1) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos + 2, xpos + 1) := 30
-		pieceFound := true
-	    end if
-	end if
-	if ver1 <= 8 and ver1 >= 1 and ver8 <= 8 and ver8 >= 1 then
-	    if pieceArray (ypos + 2, xpos - 1) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos + 2, xpos - 1) := 30
-		pieceFound := true
-	    end if
-	end if
-	if ver2 <= 8 and ver2 >= 1 and ver8 <= 8 and ver8 >= 1 then
-	    if pieceArray (ypos - 2, xpos - 1) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos - 2, xpos - 1) := 30
-		pieceFound := true
-	    end if
-	end if
-	if ver2 <= 8 and ver2 >= 1 and ver7 <= 8 and ver7 >= 1 then
-	    if pieceArray (ypos - 2, xpos + 1) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos - 2, xpos + 1) := 30
-		pieceFound := true
-	    end if
-	end if
-	if ver3 <= 8 and ver3 >= 1 and ver6 <= 8 and ver6 >= 1 then
-	    if pieceArray (ypos + 1, xpos - 2) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos + 1, xpos - 2) := 30
-		pieceFound := true
-	    end if
-	end if
-	if ver4 <= 8 and ver4 >= 1 and ver6 <= 8 and ver6 >= 1 then
-	    if pieceArray (ypos - 1, xpos - 2) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos - 1, xpos - 2) := 30
-		pieceFound := true
-	    end if
-	end if
-	if ver3 <= 8 and ver3 >= 1 and ver5 <= 8 and ver5 >= 1 then
-	    if pieceArray (ypos + 1, xpos + 2) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos + 1, xpos + 2) := 30
-		pieceFound := true
-	    end if
-	end if
-	if ver4 <= 8 and ver4 >= 1 and ver5 <= 8 and ver5 >= 1 then
-	    if pieceArray (ypos - 1, xpos + 2) = 23 then
-		returnArray (ypos, xpos) := 23
-		returnArray (ypos - 1, xpos + 2) := 30
-		pieceFound := true
-	    end if
-	end if
 
-    end if
+if pieceFound = true then
+    returnArray (ypos, xpos) := teamNumber + 3
+    returnArray (pieceFoundPos (1), pieceFoundPos (2)) := 30
 end if
+
 result returnArray
