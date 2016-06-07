@@ -79,7 +79,7 @@ loop
 	    Font.Draw (lastBlackMove, maxx div 2 - 250, maxy div 2 -150, font1, black)
 	    Font.Draw (lastWhiteMove, maxx div 2 + 100, maxy div 2 -150, font1, black)
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
-	    put "Enter your move (or \"help\" for help): " ..
+	    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 	    get tempInput : *
 
 	    if Str.Lower (tempInput) = "exit" then
@@ -124,7 +124,7 @@ loop
 		    Font.Draw ("Last White Move", maxx div 2 - 200, maxy div 2 + 150, font1, black)
 		    Font.Draw (lastBlackMove, maxx div 2 - 450, maxy div 2 + 50, font1, black)
 		    Font.Draw (lastWhiteMove, maxx div 2 - 100, maxy div 2 + 50, font1, black)
-		    put "Enter your move (or \"help\" for help): " ..
+		    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 		else
 		    if movement = "EXIT" or movement = "exit" then
 			exit
@@ -142,7 +142,7 @@ loop
 			exit when not compareArray (comparisonArray, pieceArray)
 		    end if
 		    drawBoard (pieceArray)
-		    put "Invalid move. Enter your move (or \"help\" for help): " ..
+		    put "Invalid move. Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 		    fork errorSound
 		    Font.Draw ("Black Points", maxx div 2 - 500, maxy div 2 + 350, font1, black)
 		    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
