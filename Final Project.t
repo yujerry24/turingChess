@@ -51,9 +51,13 @@ include "compareArray.t"
 
 include "drawBoard.t"
 
+include "resolveConflict.t"
+
 include "doMove.t"
 
 include "clearBoard.t"
+
+
 process moveSound
     Music.PlayFile ("pieceMoveSound.wav")
 end moveSound
