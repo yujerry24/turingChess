@@ -17,10 +17,6 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var whiteQueenCastle : boolean := true
     var blackKingCastle : boolean := true
     var blackQueenCastle : boolean := true
-    
-    %Variables for resolving ambiguity
-    var resolveString : string
-    var resolvePos : int
 
     %Note: "result pieceArray" basically kills the function
 
