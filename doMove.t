@@ -6,7 +6,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var xpos : int := index ("ABCDEFGH", move (2))
     var ypos : int := 9 - strint (move (3))
     var destination : int := pieceArray (ypos, xpos)
-    var pawnCheck : int := -1
+    var pawnCheck : int
     var teamNumber : int := 10
     var pieceFound : boolean := false
     var pieceFoundPos : array 1 .. 2 of int
@@ -33,9 +33,10 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 
     %Toggle black/white
     if not whiteMove then
-	pawnCheck := 1
 	teamNumber := 20
     end if
+    
+    pawnCheck := (-1) ** (teamNumber div 10)
 
     %Actually do the move
     if move (1) = "P" then %Pawn movement
@@ -44,11 +45,11 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	include "piececode/rook/rookMain.t"
     elsif move (1) = "K" then %King movement
 	include "piececode/king.t"
-    elsif move (1) = "N" then    %King movement
+    elsif move (1) = "N" then %Knight movement
 	include "piececode/knight.t"
-    elsif move (1) = "B" then         %King movement
+    elsif move (1) = "B" then %Bishop movement
 	include "piececode/bishop.t"
-    elsif move (1) = "Q" then              %King movement
+    elsif move (1) = "Q" then %Queen movement
 	include "piececode/queen/queenMain.t"
     end if
     result pieceArray
