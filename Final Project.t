@@ -70,14 +70,14 @@ loop
 
 	loop
 	    drawBoard (pieceArray)
-	    Font.Draw ("Black Points", maxx div 2 - 500, maxy div 2 + 350, font1, black)
-	    Font.Draw ("White Points", maxx div 2 - 200, maxy div 2 + 350, font1, black)
-	    Font.Draw (intstr (blackScore), maxx div 2 - 400, maxy div 2 + 250, font1, black)
-	    Font.Draw (intstr (whiteScore), maxx div 2 - 100, maxy div 2 + 250, font1, black)
-	    Font.Draw ("Last Black Move", maxx div 2 - 550, maxy div 2 + 150, font1, black)
-	    Font.Draw ("Last White Move", maxx div 2 - 200, maxy div 2 + 150, font1, black)
-	    Font.Draw (lastBlackMove, maxx div 2 - 450, maxy div 2 + 50, font1, black)
-	    Font.Draw (lastWhiteMove, maxx div 2 - 100, maxy div 2 + 50, font1, black)
+	    Font.Draw ("Black Points", maxx div 2 - 300, maxy div 2 + 150, font1, black)
+	    Font.Draw ("White Points", maxx div 2 - 000, maxy div 2 + 150, font1, black)
+	    Font.Draw (intstr (blackScore), maxx div 2 - 200, maxy div 2 + 50, font1, black)
+	    Font.Draw (intstr (whiteScore), maxx div 2 + 100, maxy div 2 + 50, font1, black)
+	    Font.Draw ("Last Black Move", maxx div 2 - 350, maxy div 2 -50, font1, black)
+	    Font.Draw ("Last White Move", maxx div 2 - 000, maxy div 2 -50, font1, black)
+	    Font.Draw (lastBlackMove, maxx div 2 - 250, maxy div 2 -150, font1, black)
+	    Font.Draw (lastWhiteMove, maxx div 2 + 100, maxy div 2 -150, font1, black)
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
 	    put "Enter your move (or \"help\" for help): " ..
 	    get tempInput : *
