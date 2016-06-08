@@ -9,7 +9,7 @@ function addControl (y : int, x : int, team : int, controlArray : array 1 .. 8, 
     result returnArray
 end addControl
 
-function writeControlArray (pieceCode : int, y : int, x : int, controlArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
+function writeControlArray (pieceCode : int, y : int, x : int, controlArray : array 1 .. 8, 1 .. 8 of int, pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := controlArray
     var team : int := pieceCode div 10
     var piece : int := pieceCode mod 10
@@ -28,9 +28,31 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
 	end if
 
     elsif piece = 2 then %Rook control
-	for pos : 1 .. 8
-	    returnArray := addControl (y, pos, team, returnArray)
-	    returnArray := addControl (pos, x, team, returnArray)
+
+	for pos : y .. 8 %Look vertically below
+	    if not pos = y then
+		returnArray := addControl (pos, x, team, returnArray)
+		exit when not pieceArray (pos, x) = 30
+	    end if
+	end for
+	for decreasing pos : y .. 1 %Look vertically above
+	    if not pos = y then
+		returnArray := addControl (pos, x, team, returnArray)
+		exit when not pieceArray (pos, x) = 30
+	    end if
+	end for
+
+	for pos : x .. 8 %Look to the right
+	    if not pos = x then
+		returnArray := addControl (y, pos, team, returnArray)
+		exit when not pieceArray (y, pos) = 30
+	    end if
+	end for
+	for decreasing pos : x .. 1 %Look to the left
+	    if not pos = x then
+		returnArray := addControl (y, pos, team, returnArray)
+		exit when not pieceArray (y, pos) = 30
+	    end if
 	end for
 
     elsif piece = 3 then %Knight
@@ -38,24 +60,26 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
 	    for xpos : -2 .. 2
 		if (abs (y) = 1 and abs (x) = 2) or (abs (y) = 2 and abs (x) = 1) then
 		    if (y + ypos <= 8 and y + ypos >= 1) and (x + xpos <= 8 and x + xpos >= 1) then
-			returnArray  := addControl(y + ypos, x + xpos, team, returnArray)
+			returnArray := addControl (y + ypos, x + xpos, team, returnArray)
 		    end if
 		end if
 	    end for
 	end for
+
+    elsif piece = 4 then %Bishop
     
-    %Bishop + Queen code still needs inserting
-	
+    elsif piece = 5 then %Queen
+
     elsif piece = 6 then %King
 	for ypos : -1 .. 1
 	    for xpos : -1 .. 1
-		if y + ypos >= 1 and y + ypos <= 8 and x + xpos >= 1 and x + xpos <= 8 and (not(ypos = 0 or xpos = 0))then
-		    returnArray := addControl(y + ypos, x + xpos, team, returnArray)                      
+		if y + ypos >= 1 and y + ypos <= 8 and x + xpos >= 1 and x + xpos <= 8 and (not (ypos = 0 or xpos = 0)) then
+		    returnArray := addControl (y + ypos, x + xpos, team, returnArray)
 		end if
 	    end for
 	end for
     end if
-     
+
     result returnArray
 end writeControlArray
 
@@ -63,11 +87,17 @@ end writeControlArray
 % Program to figure out which pieces control which squares.
 function createControlArray (pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int
+    for i : 1 .. 8
+	for v : 1 .. 8
+	    returnArray (i, v) := 0
+	end for
+    end for
     for y : 1 .. 8
 	for x : 1 .. 8
 	    if not pieceArray (y, x) = 0 and pieceArray (y, x) div 10 > 0 then
-		returnArray := writeControlArray (pieceArray (y, x), y, x, returnArray)
+		returnArray := writeControlArray (pieceArray (y, x), y, x, returnArray, pieceArray)
 	    end if
 	end for
     end for
+    result returnArray
 end createControlArray

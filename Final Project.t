@@ -43,6 +43,8 @@ include "calculateBlackScore.t"
 include "calculateWhiteScore.t"
 include "imageImport.t"
 
+include "printArray.t"
+
 include "pieceArrayInit.t"
 
 include "isValidNotation.t"
@@ -52,6 +54,8 @@ include "compareArray.t"
 include "drawBoard.t"
 
 include "resolveConflict.t"
+
+include "createControlArray.t"
 
 include "doMove.t"
 
@@ -209,12 +213,21 @@ loop
 		end if
 
 
+
 		get tempInput : *
 
 	    end loop
 
+	    /*
+
+	     DEBUG OUTPUT PLEASE REMOVE
+
+	     */
+	    printArray (createControlArray (pieceArray))
+	    Input.Pause
+
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
-		
+
 		if whiteToMove = true and Str.Lower (movement) = "resign" then
 		    cls
 		    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
