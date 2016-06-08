@@ -13,7 +13,7 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
     var returnArray : array 1 .. 8, 1 .. 8 of int := controlArray
     var team : int := pieceCode div 10
     var piece : int := pieceCode mod 10
-    var pawnMoveDir : int := ((-1) ** (team))
+    var pawnMoveDir : int := ((-1) ** (team)) %Makes pawnMoveDir positive or negative one, depending on the team
 
     returnArray (y, x) += team * 10
 
@@ -67,9 +67,30 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
 	end for
 
     elsif piece = 4 then %Bishop
+	for i : 1 .. 8
+	    %Towards bottom right
+	    if y + i <= 8 and x + i <= 8 and not (pieceArray(y + i - 1, x + i - 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
+		returnArray := addControl (y + i, x + i, team, returnArray)    
+	    end if
+	    %Towards top left
+	    if y - i <= 8 and x - i <= 8 and not (pieceArray(y - i + 1, x - i + 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
+		returnArray := addControl (y - i, x - i, team, returnArray)
+	    end if
+	    %Towards top right
+	    if y - i <= 8 and x + i <= 8 and not (pieceArray(y - i + 1, x + i - 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
+		returnArray := addControl (y - i, x + i, team, returnArray)
+	    end if
+	    %Towards bottom left
+	    if y + i <= 8 and x - i <= 8 and not (pieceArray(y + i + 1, x - i - 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
+		returnArray := addControl (y + i, x - i, team, returnArray)
+	    end if
+	end for
     
     elsif piece = 5 then %Queen
-
+	%Ugly recursion hack that basically assumes both a bishop and a rook are in this space
+	%This will never run more than one level and should not cause a stack overflow
+	returnArray := writeControlArray (team * 10 + 4, y, x, returnArray, pieceArray)
+	returnArray := writeControlArray (team * 10 + 2, y, x, returnArray, pieceArray) 
     elsif piece = 6 then %King
 	for ypos : -1 .. 1
 	    for xpos : -1 .. 1
