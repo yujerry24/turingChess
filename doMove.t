@@ -4,7 +4,7 @@ include "piececode/queen/queenValidation.t"
 
 function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var xpos : int := index ("ABCDEFGH", move (2))
-    var ypos : int := 9 - strint (move (3))
+    var ypos : int := 9 - strint (move (3)) %Invert the y-axis
     var destination : int := pieceArray (ypos, xpos)
     var pawnCheck : int
     var teamNumber : int := 10
@@ -13,11 +13,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var pieceFound2Pos : array 1 .. 2 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray
     var resolveRequired : boolean := false
-    var whiteKingCastle : boolean := true
-    var whiteQueenCastle : boolean := true
-    var blackKingCastle : boolean := true
-    var blackQueenCastle : boolean := true
-
+    
     %Note: "result pieceArray" basically kills the function
 
     %Check if there is already a piece occupying the space
