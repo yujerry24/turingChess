@@ -1,11 +1,11 @@
 function addControl (y : int, x : int, team : int, controlArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := controlArray
-
-    %Write the correct control team number
-    if (not controlArray (y, x) mod 10 = team) and controlArray (y, x) mod 10 < 3 then
-	returnArray (y, x) += team
+    if y <= 8 and y >= 1 and x <= 8 and x >= 1 then %Out of range failsafe
+	%Write the correct control team number
+	if (not controlArray (y, x) mod 10 = team) and controlArray (y, x) mod 10 < 3 then
+	    returnArray (y, x) += team
+	end if
     end if
-
     result returnArray
 end addControl
 
@@ -66,25 +66,7 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
 	    end for
 	end for
 
-    elsif piece = 4 then %Bishop
-	for i : 1 .. 8
-	    %Towards bottom right
-	    if y + i <= 8 and x + i <= 8 and not (pieceArray(y + i - 1, x + i - 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
-		returnArray := addControl (y + i, x + i, team, returnArray)    
-	    end if
-	    %Towards top left
-	    if y - i <= 8 and x - i <= 8 and not (pieceArray(y - i + 1, x - i + 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
-		returnArray := addControl (y - i, x - i, team, returnArray)
-	    end if
-	    %Towards top right
-	    if y - i <= 8 and x + i <= 8 and not (pieceArray(y - i + 1, x + i - 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
-		returnArray := addControl (y - i, x + i, team, returnArray)
-	    end if
-	    %Towards bottom left
-	    if y + i <= 8 and x - i <= 8 and not (pieceArray(y + i + 1, x - i - 1) = 30 and not i = 1) then %The pieceArray check makes sure we add control to a piece, then stop.
-		returnArray := addControl (y + i, x - i, team, returnArray)
-	    end if
-	end for
+    elsif piece = 4 then
     
     elsif piece = 5 then %Queen
 	%Ugly recursion hack that basically assumes both a bishop and a rook are in this space
