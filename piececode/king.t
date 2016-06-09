@@ -45,5 +45,3 @@ elsif (teamNumber = 10 and ypos = 8) or (teamNumber = 20 and ypos = 1) then %Cas
 	end if
     end if   
 end if
-
-result returnArray

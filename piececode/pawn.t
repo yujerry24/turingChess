@@ -1,64 +1,32 @@
-var t1 : int := ypos + 1
-var t2 : int := ypos - 1
-var t3 : int := xpos + 1
-var t4 : int := xpos - 1
-if teamNumber = 10 then
-    if pieceArray (ypos, xpos) = 21 or pieceArray (ypos, xpos) = 22 or pieceArray (ypos, xpos) = 23 or pieceArray (ypos, xpos) = 24 or pieceArray (ypos, xpos) = 25 then
-	if t1 <= 8 and t1 >= 1 and t4 <= 8 and t4 >= 1 then
-	    if pieceArray (ypos + 1, xpos - 1) = 11 then
-		returnArray (ypos + 1, xpos - 1) := 30
-		returnArray (ypos, xpos) := 11
-		result returnArray
-	    end if
-	end if
-	if t1 <= 8 and t1 >= 1 and t2 <= 8 and t3 >= 1 then
-	    if pieceArray (ypos + 1, xpos + 1) = 11 then
-		returnArray (ypos + 1, xpos + 1) := 30
-		returnArray (ypos, xpos) := 11
-		result returnArray
-	    end if
-	end if
+%Pawn movement code
+
+if destination = 30 then %If empty, look vertically
+    if pieceArray (ypos + moveDir, xpos) = teamNumber + 1 then
+	returnArray (ypos, xpos) := teamNumber + 1
+	returnArray (ypos + moveDir, xpos) := 30
+    elsif (teamNumber = 10 and ypos = 4) or (teamNumber = 20 and ypos = 5) then
+	%Code goes here
     end if
+elsif not destination div 10 = teamNumber then %If enemy piece, look diagonally
+    for i : -1 .. 1 by 2 %Will not make i equal 0
+	if xpos + i <= 8 and xpos + i >= 1 and pieceArray (ypos + moveDir, xpos + i) = teamNumber + 1 then
+	    if pieceFound = false then
+		pieceFound := true
+		pieceFoundPos (1) := ypos + moveDir
+		pieceFoundPos (2) := xpos + i
+	    else
+		resolveRequired := true
+		pieceFound2Pos (1) := ypos + moveDir
+		pieceFound2Pos (2) := xpos + i
+	    end if
+	end if
+    end for
 end if
 
-if teamNumber = 20 then
-    if pieceArray (ypos, xpos) = 11 or pieceArray (ypos, xpos) = 12 or pieceArray (ypos, xpos) = 13 or pieceArray (ypos, xpos) = 14 or pieceArray (ypos, xpos) = 15 then
-	if t2 <= 8 and t2 >= 1 and t4 <= 8 and t4 >= 1 then
-	    if pieceArray (ypos - 1, xpos - 1) = 21 then
-		returnArray (ypos - 1, xpos - 1) := 30
-		returnArray (ypos, xpos) := 21
-		result returnArray
-	    end if
-	end if
-	if t2 <= 8 and t2 >= 1 and t3 <= 8 and t3 >= 1 then
-	    if pieceArray (ypos - 1, xpos + 1) = 21 then
-		returnArray (ypos - 1, xpos + 1) := 30
-		returnArray (ypos, xpos) := 21
-		result returnArray
-	    end if
-	end if
+if pieceFound then %For capturing and ambiguity resolution
+    if resolveRequired then
+	pieceFoundPos := resolveConflict (pieceFoundPos, pieceFound2Pos, pieceArray)
     end if
-end if
-
-
-if not pieceArray (ypos, xpos) = 30 then
-    result pieceArray
-end if
-
-
-if not pieceArray (ypos - pawnCheck, xpos) = teamNumber + 1 then
-    if pieceArray (ypos - pawnCheck, xpos) = 30 then
-	if whiteMove and ypos = 5 and pieceArray (ypos - pawnCheck * 2, xpos) = teamNumber + 1 then
-	    returnArray (ypos, xpos) := teamNumber + 1
-	    returnArray (ypos - pawnCheck * 2, xpos) := 30
-	elsif not whiteMove and ypos = 4 and pieceArray (ypos - pawnCheck * 2, xpos) = teamNumber + 1 then
-	    returnArray (ypos, xpos) := teamNumber + 1
-	    returnArray (ypos - pawnCheck * 2, xpos) := 30
-	end if
-    end if
-    result returnArray
-else
     returnArray (ypos, xpos) := teamNumber + 1
-    returnArray (ypos - pawnCheck, xpos) := 30
-    result returnArray
+    returnArray (pieceFoundPos (1), pieceFoundPos (2)) := 30
 end if

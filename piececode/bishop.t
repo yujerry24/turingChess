@@ -1,5 +1,4 @@
 %bishop
-put "test"
 var TLDW : boolean := true
 var TRDW : boolean := true
 var BLDW : boolean := true
@@ -25,7 +24,6 @@ if teamNumber = 10 then
 		returnArray (ypos + value1, xpos + value1) := 30
 		returnArray (ypos, xpos) := 14
 		pieceFound := true
-		result returnArray
 	    else
 		BRDW := false
 
@@ -39,7 +37,6 @@ if teamNumber = 10 then
 		returnArray (ypos + value1, xpos - value1) := 30
 		returnArray (ypos, xpos) := 14
 		pieceFound := true
-		result returnArray
 	    else
 		BLDW := false
 
@@ -53,7 +50,6 @@ if teamNumber = 10 then
 		returnArray (ypos - value1, xpos + value1) := 30
 		returnArray (ypos, xpos) := 14
 		pieceFound := true
-		result returnArray
 	    else
 		TLDW := false
 	    end if
@@ -66,7 +62,6 @@ if teamNumber = 10 then
 		returnArray (ypos - value1, xpos - value1) := 30
 		returnArray (ypos, xpos) := 14
 		pieceFound := true
-		result returnArray
 	    else
 		TRDW := false
 	    end if
@@ -100,7 +95,6 @@ if teamNumber = 20 then
 		returnArray (ypos + value2, xpos + value2) := 30
 		returnArray (ypos, xpos) := 24
 		pieceFound := true
-		result returnArray
 	    else
 		BRDB := false
 
@@ -113,7 +107,6 @@ if teamNumber = 20 then
 		returnArray (ypos + value2, xpos - value2) := 30
 		returnArray (ypos, xpos) := 24
 		pieceFound := true
-		result returnArray
 	    else
 		BLDB := false
 
@@ -126,7 +119,6 @@ if teamNumber = 20 then
 		returnArray (ypos - value2, xpos + value2) := 30
 		returnArray (ypos, xpos) := 24
 		pieceFound := true
-		result returnArray
 	    else
 		TLDB := false
 	    end if
@@ -138,7 +130,6 @@ if teamNumber = 20 then
 		returnArray (ypos - value2, xpos - value2) := 30
 		returnArray (ypos, xpos) := 24
 		pieceFound := true
-		result returnArray
 	    else
 		TRDB := false
 	    end if

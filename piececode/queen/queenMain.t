@@ -179,15 +179,6 @@ if not pieceFound then
     result pieceArray
 end if
 
-%Resolve ambiguous user input
-if resolveRequired then
-    assert 2 + 2 = 5
-    put "Stalemate resolution required"
-end if
-
 %Move the rook
 returnArray (ypos, xpos) := teamNumber + 5
 returnArray (pieceFoundPos (1), pieceFoundPos (2)) := 30
-
-result returnArray
-

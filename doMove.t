@@ -6,7 +6,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var xpos : int := index ("ABCDEFGH", move (2))
     var ypos : int := 9 - strint (move (3)) %Invert the y-axis
     var destination : int := pieceArray (ypos, xpos)
-    var pawnCheck : int
+    var moveDir : int
     var teamNumber : int := 10
     var pieceFound : boolean := false
     var pieceFoundPos : array 1 .. 2 of int
@@ -28,7 +28,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	teamNumber := 20
     end if
     
-    pawnCheck := (-1) ** (teamNumber div 10)
+    moveDir := (-1) ** ((teamNumber div 10) + 1) %Mainly for pawn movement
 
     %Actually do the move
     if move (1) = "P" then %Pawn movement
@@ -44,5 +44,5 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     elsif move (1) = "Q" then %Queen movement
 	include "piececode/queen/queenMain.t"
     end if
-    result pieceArray
+    result returnArray
 end doMove
