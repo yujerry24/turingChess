@@ -70,14 +70,42 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
 	end for
 
     elsif piece = 4 then %Bishop
-
+	for xpos : 1 .. 7 %Anything plus 8 will always be out of range
+	    %Bottom right
+	    if x + xpos <= 8 and y + xpos <= 8 then
+		returnArray := addControl (y + xpos, x + xpos, team, returnArray)
+		exit when not pieceArray (y + xpos, x + xpos) = 30
+	    end if
+	end for
+	for xpos : 1 .. 7 %Anything plus 8 will always be out of range
+	    %Top left
+	    if x - xpos >= 1 and y - xpos >= 1 then
+		returnArray := addControl (y - xpos, x - xpos, team, returnArray)
+		exit when not pieceArray (y - xpos, x - xpos) = 30
+	    end if
+	end for
+	for xpos : 1 .. 7 %Anything plus 8 will always be out of range
+	    %Bottom left
+	    if x - xpos >= 1 and y + xpos <= 8 then
+		returnArray := addControl (y + xpos, x - xpos, team, returnArray)
+		exit when not pieceArray (y + xpos, x - xpos) = 30
+	    end if
+	end for
+	for xpos : 1 .. 7 %Anything plus 8 will always be out of range
+	    %Top right
+	    if y - xpos >= 1 and x + xpos <= 8 then
+		returnArray := addControl (y - xpos, x + xpos, team, returnArray)
+		exit when not pieceArray (y - xpos, x + xpos) = 30
+	    end if
+	end for
+	
 
     elsif piece = 5 then %Queen
 	%Ugly recursion hack that basically assumes both a bishop and a rook are in this space
 	%This will never run more than one level and should not cause a stack overflow
 	returnArray := writeControlArray (team * 10 + 4, y, x, returnArray, pieceArray)
 	returnArray := writeControlArray (team * 10 + 2, y, x, returnArray, pieceArray)
-	
+
     elsif piece = 6 then %King
 	for ypos : -1 .. 1
 	    for xpos : -1 .. 1
