@@ -41,5 +41,3 @@ end if
 %Move the rook
 returnArray (ypos, xpos) := teamNumber + 2
 returnArray (pieceFoundPos (1), pieceFoundPos (2)) := 30
-
-result returnArray

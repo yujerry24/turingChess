@@ -31,5 +31,3 @@ if pieceFound = true then
     returnArray (ypos, xpos) := teamNumber + 3
     returnArray (pieceFoundPos (1), pieceFoundPos (2)) := 30
 end if
-
-result returnArray
