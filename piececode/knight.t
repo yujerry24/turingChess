@@ -1,6 +1,6 @@
 %White knight move
 %Checks if target position is blank or occupied by enemy piece
-if pieceArray (ypos, xpos) = 30 then
+if not pieceArray (ypos, xpos) div 10 * 10 = teamNumber then
     for y : -2 .. 2
 	for x : -2 .. 2
 	    if (abs (y) = 1 and abs (x) = 2) or (abs (y) = 2 and abs (x) = 1) then
