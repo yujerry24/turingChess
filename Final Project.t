@@ -91,24 +91,7 @@ loop
 	    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 	    get tempInput : *
 
-	    if Str.Lower (tempInput) = "exit" then
-
-		lastWhiteMove := "N/A"
-		lastBlackMove := "N/A"
-		whiteToMove := true
-		tempArray := resetBoard (pieceArray)
-		drawBoard (tempArray)
-		pieceArray := tempArray
-		blackScore := calculateBlackScore (pieceArray)
-		whiteScore := calculateWhiteScore (pieceArray)
-		cls
-		Sprite.Show (backgroundSPR)
-
-		menu
-
-		exit
-		
-	    elsif Str.Lower (tempInput) = "resign" then
+	    if Str.Lower (tempInput) = "exit" or Str.Lower (tempInput) = "resign" then
 		if whiteToMove = true then
 		    cls
 		    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
@@ -133,6 +116,9 @@ loop
 		menu
 
 		exit
+
+
+		
 
 	    end if
 
@@ -186,7 +172,7 @@ loop
 
 	    end loop
 
-	  
+
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
 
 		if whiteToMove = true and Str.Lower (movement) = "resign" then
