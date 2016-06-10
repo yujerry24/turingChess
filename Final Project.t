@@ -30,9 +30,14 @@ include "resolveConflict.t"
 
 include "createControlArray.t"
 
-%King pos variables (Used in doMove and must therefore be declared here)
-var whiteKingPos : array 1 .. 2 of int := init (8, 5)
-var blackKingPos : array 1 .. 2 of int := init (1, 5)
+%King pos array (Used in doMove and must therefore be declared here)
+var kingPos : array 1 .. 2, 1 .. 2 of int
+%White king
+kingPos(1,1) := (8)
+kingPos(1,2) := (5)
+%Black king
+kingPos(2,1) := (1)
+kingPos(2,2) := (5)
 
 %Variable to check whether a piece can block a check
 var blockPossible : boolean := false

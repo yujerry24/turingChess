@@ -20,7 +20,7 @@ for bpos : 1 .. 7         %Anything plus 8 will always be out of range
 	exit when not pieceArray (ypos - bpos, xpos - bpos) = 30
     end if
 end for
-for bpos : 1 .. 7         %Anything plus 8 will always be out of range
+for bpos : 1 .. 7 %Anything plus 8 will always be out of range
     %Bottom left
     if xpos - bpos >= 1 and ypos + bpos <= 8 then
 	if pieceArray (ypos + bpos, xpos - bpos) = teamNumber + 4 then
