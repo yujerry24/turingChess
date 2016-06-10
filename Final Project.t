@@ -34,9 +34,6 @@ include "createControlArray.t"
 var whiteKingPos : array 1 .. 2 of int := init (8, 5)
 var blackKingPos : array 1 .. 2 of int := init (1, 5)
 
-%Variable to check whether a piece can block a check
-var blockPossible : boolean := false
-
 include "doMove.t"
 
 include "clearBoard.t"
