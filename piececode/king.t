@@ -30,6 +30,8 @@ elsif (teamNumber = 10 and ypos = 8) or (teamNumber = 20 and ypos = 1) then %Cas
 	    returnArray(ypos, 7) := teamNumber + 6
 	    returnArray(ypos, 5) := 30
 	    returnArray(ypos, 8) := 30
+	    pieceFoundPos(1) := ypos
+	    pieceFoundPos(2) := 7
 	end if
     elsif xpos = 3 and pieceArray(ypos, 5) = teamNumber +6 and pieceArray(ypos, 1) = teamNumber + 2 then %Queenside
 	for i : 2 .. 4 %Because I don't want the if statement to get too long
@@ -42,6 +44,14 @@ elsif (teamNumber = 10 and ypos = 8) or (teamNumber = 20 and ypos = 1) then %Cas
 	    returnArray(ypos, 3) := teamNumber + 6
 	    returnArray(ypos, 5) := 30
 	    returnArray(ypos, 8) := 30
+	    pieceFoundPos(1) := ypos
+	    pieceFoundPos(2) := 3
 	end if
     end if   
+end if
+
+if whiteMove = true then
+    whiteKingPos := pieceFoundPos       
+else
+    blackKingPos := pieceFoundPos
 end if
