@@ -1,10 +1,8 @@
 function addControl (y : int, x : int, team : int, controlArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := controlArray
-    if y <= 8 and y >= 1 and x <= 8 and x >= 1 then %Out of range failsafe (Out-of-range integers shouldn't be passed to this function anyways)
-	%Write the correct control team number after checking pre-existing control
-	if (not controlArray (y, x) mod 10 = team) and controlArray (y, x) mod 10 < 3 then
-	    returnArray (y, x) += team
-	end if
+    %Write the correct control team number after checking pre-existing control
+    if (not controlArray (y, x) mod 10 = team) and (controlArray (y, x) mod 10 < 3) then
+	returnArray (y, x) += team
     end if
     result returnArray
 end addControl
@@ -61,8 +59,8 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
     elsif piece = 3 then %Knight
 	for ypos : -2 .. 2
 	    for xpos : -2 .. 2
-		if (abs (y) = 1 and abs (x) = 2) or (abs (y) = 2 and abs (x) = 1) then
-		    if (y + ypos <= 8 and y + ypos >= 1) and (x + xpos <= 8 and x + xpos >= 1) then
+		if (abs (xpos) = 2 and abs (ypos) = 1) or (abs (xpos) = 1 and abs (ypos) = 2) then
+		    if (ypos + y <= 8 and ypos + y >= 1) and (xpos + x <= 8 and xpos + x >= 1) then
 			returnArray := addControl (y + ypos, x + xpos, team, returnArray)
 		    end if
 		end if
@@ -98,7 +96,7 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
 		exit when not pieceArray (y - xpos, x + xpos) = 30
 	    end if
 	end for
-	
+
 
     elsif piece = 5 then %Queen
 	%Ugly recursion hack that basically assumes both a bishop and a rook are in this space
