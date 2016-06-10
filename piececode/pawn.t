@@ -4,8 +4,12 @@ if destination = 30 then %If empty, look vertically
     if pieceArray (ypos + moveDir, xpos) = teamNumber + 1 then
 	returnArray (ypos, xpos) := teamNumber + 1
 	returnArray (ypos + moveDir, xpos) := 30
-    elsif (teamNumber = 10 and ypos = 4) or (teamNumber = 20 and ypos = 5) then
-	%Code goes here
+    elsif (teamNumber = 10 and ypos = 5) or (teamNumber = 20 and ypos = 4) then
+	moveDir := moveDir * 2
+	if pieceArray (ypos + moveDir, xpos) = teamNumber + 1 then
+	    returnArray (ypos, xpos) := teamNumber + 1
+	    returnArray (ypos + moveDir, xpos) := 30
+	end if
     end if
 elsif not destination div 10 = teamNumber then %If enemy piece, look diagonally
     for i : -1 .. 1 by 2 %Will not make i equal 0
