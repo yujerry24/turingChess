@@ -50,17 +50,3 @@ elsif (teamNumber = 10 and ypos = 8) or (teamNumber = 20 and ypos = 1) then %Cas
     end if   
 end if
 
-%Make sure the king isn't moving into check
-if whiteMove = true then
-    whiteKingPos := pieceFoundPos
-    if (createControlArray(returnArray)(whiteKingPos(1), whiteKingPos(2)) mod 10) > 1 then
-	result pieceArray
-    end if
-else
-    blackKingPos := pieceFoundPos
-    put (createControlArray(returnArray)(blackKingPos(1), blackKingPos(2)) mod 10)
-    Input.Pause
-    if not (createControlArray(returnArray)(blackKingPos(1), blackKingPos(2)) mod 10) mod 2 = 0 then %Make sure the control array is equal to 0 or 2
-	result pieceArray
-    end if
-end if
