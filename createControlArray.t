@@ -1,12 +1,8 @@
 function addControl (y : int, x : int, team : int, controlArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := controlArray
     %Write the correct control team number after checking pre-existing control
-    if not controlArray(y,x) mod 10 = team then
-	if controlArray(y,x) mod 10 = 0 then
-	    returnArray(y,x) += team
-	elsif controlArray(y,x) mod 10 < 3 then
-	    returnArray(y,x) := (returnArray(y,x) div 10) * 10 + 3
-	end if
+    if (not controlArray (y, x) mod 10 = team) and (controlArray (y, x) mod 10 < 3) then
+	returnArray (y, x) := returnArray (y, x) div 10 + team
     end if
     result returnArray
 end addControl
@@ -19,7 +15,7 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
 
     %Make the space occupied
     if returnArray (y, x) div 10 = 3 then
-	returnArray (y, x) := returnArray(y,x) mod 10 + team * 10
+	returnArray (y, x) := returnArray (y, x) mod 10 + team * 10
     end if
 
     if piece = 1 then %Pawn control
