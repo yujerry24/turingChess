@@ -5,7 +5,7 @@ function addControl (y : int, x : int, team : int, controlArray : array 1 .. 8, 
 	if controlArray(y,x) mod 10 = 0 then
 	    returnArray(y,x) += team
 	elsif controlArray(y,x) mod 10 < 3 then
-	    returnArray(y,x) := 3
+	    returnArray(y,x) := (returnArray(y,x) div 10) * 10 + 3
 	end if
     end if
     result returnArray
@@ -17,9 +17,9 @@ function writeControlArray (pieceCode : int, y : int, x : int, controlArray : ar
     var piece : int := pieceCode mod 10
     var pawnMoveDir : int := ((-1) ** (team)) %Makes pawnMoveDir positive or negative one, depending on the team
 
-    %Make the right square occupied
-    if returnArray (y, x) div 10 = 0 then
-	returnArray (y, x) += team * 10
+    %Make the space occupied
+    if returnArray (y, x) div 10 = 3 then
+	returnArray (y, x) := returnArray(y,x) mod 10 + team * 10
     end if
 
     if piece = 1 then %Pawn control
@@ -129,7 +129,7 @@ function createControlArray (pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1
     var returnArray : array 1 .. 8, 1 .. 8 of int
     for i : 1 .. 8
 	for v : 1 .. 8
-	    returnArray (i, v) := 0
+	    returnArray (i, v) := 30
 	end for
     end for
     for y : 1 .. 8
