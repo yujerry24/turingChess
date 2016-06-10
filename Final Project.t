@@ -30,6 +30,10 @@ include "resolveConflict.t"
 
 include "createControlArray.t"
 
+%King pos variables (Used in doMove and must therefore be declared here)
+var whiteKingPos : array 1 .. 2 of int := init (8, 5)
+var blackKingPos : array 1 .. 2 of int := init (1, 5)
+
 include "doMove.t"
 
 include "clearBoard.t"
@@ -107,7 +111,7 @@ loop
 		menu
 
 		exit
-		
+
 	    elsif Str.Lower (tempInput) = "resign" then
 		if whiteToMove = true then
 		    cls
@@ -186,7 +190,7 @@ loop
 
 	    end loop
 
-	  
+
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
 
 		if whiteToMove = true and Str.Lower (movement) = "resign" then
