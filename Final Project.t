@@ -1,42 +1,13 @@
-%Chess Program
+% Chess Program
 
 % Graphics Screen
 setscreen ("graphics:max;max,nobuttonbar")
 
-% Variables for score keeping for both sides as well as last move
-include "menu.t"
-%Clicking Buttons
-var x, y, notused1, notused2 : int
-var tempArray : array 1 .. 8, 1 .. 8 of int
-%Fonts
-var font1 : int
-font1 := Font.New ("MS Serif:33:Bold")
-var blackScore : int := 0
-var whiteScore : int := 0
-var lastBlackMove : string := "N/A"
-var lastWhiteMove : string := "N/A"
-
-%The display screen format
-var background : int := Pic.FileNew ("images/background.bmp")
-var backgroundSPR : int
-backgroundSPR := Sprite.New (background)
-Sprite.SetPosition (backgroundSPR, maxx div 2, maxy div 2, true)
-Sprite.Show (backgroundSPR)
-
-menu
-
-%Loading text while the dozens of files are importing
-
-
-%Input tracking + validation variables
-var tempInput : string
-
-%Movement variables
-var movement : string
-var whiteToMove : boolean := true
-
 % Include files for reference later
+include "menu.t"
+
 include "HowToPlay.t"
+
 include "scores.t"
 
 include "calculateBlackScore.t"
@@ -63,8 +34,37 @@ include "doMove.t"
 
 include "clearBoard.t"
 
-% Music files for correct and incorrect move
+% Clicking Buttons
+var x, y, notused1, notused2 : int
+var tempArray : array 1 .. 8, 1 .. 8 of int
 
+% Fonts and other variables for points and names
+var font1 : int
+font1 := Font.New ("MS Serif:33:Bold")
+var blackScore : int := 0
+var whiteScore : int := 0
+var lastBlackMove : string := "N/A"
+var lastWhiteMove : string := "N/A"
+
+% The display screen format for background
+var background : int := Pic.FileNew ("images/background.bmp")
+var backgroundSPR : int
+backgroundSPR := Sprite.New (background)
+Sprite.SetPosition (backgroundSPR, maxx div 2, maxy div 2, true)
+Sprite.Show (backgroundSPR)
+
+
+% Call menu procedure
+menu
+
+%Input tracking + validation variables
+var tempInput : string
+
+%Movement variables
+var movement : string
+var whiteToMove : boolean := true
+
+% Music files for correct and incorrect move
 process moveSound
     Music.PlayFile ("pieceMoveSound.wav")
 end moveSound
@@ -72,39 +72,43 @@ process errorSound
     Music.PlayFile ("ChessErrorSound.wav")
 end errorSound
 
+% Main loop for navigation between screens/windows
 loop
 
     buttonwait ("down", x, y, notused1, notused2)
-    %If mouse was clicked within the green box, show image
+
+    % If mouse clicked on Play Game
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 250 and y < maxy - 150 then
+
 	Sprite.Hide (backgroundSPR)
 
 	loop
+
 	    drawBoard (pieceArray)
 	    scores
+
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
 	    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 	    get tempInput : *
 
 	    if Str.Lower (tempInput) = "exit" then
+
 		lastWhiteMove := "N/A"
 		lastBlackMove := "N/A"
 		whiteToMove := true
 		tempArray := resetBoard (pieceArray)
-		cls
 		drawBoard (tempArray)
 		pieceArray := tempArray
 		blackScore := calculateBlackScore (pieceArray)
-
 		whiteScore := calculateWhiteScore (pieceArray)
 		cls
 		Sprite.Show (backgroundSPR)
 
 		menu
-		
+
 		exit
-	    end if
-	    if Str.Lower (tempInput) = "resign" then
+		
+	    elsif Str.Lower (tempInput) = "resign" then
 		if whiteToMove = true then
 		    cls
 		    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
@@ -119,19 +123,20 @@ loop
 		lastBlackMove := "N/A"
 		whiteToMove := true
 		tempArray := resetBoard (pieceArray)
-		cls
 		drawBoard (tempArray)
 		pieceArray := tempArray
 		blackScore := calculateBlackScore (pieceArray)
-
 		whiteScore := calculateWhiteScore (pieceArray)
 		cls
 		Sprite.Show (backgroundSPR)
 
 		menu
-		
+
 		exit
+
 	    end if
+
+
 
 	    loop
 
@@ -177,21 +182,11 @@ loop
 		    fork errorSound
 		    scores
 		end if
-
-
-
 		get tempInput : *
 
 	    end loop
 
-	    /*
-
-	     DEBUG OUTPUT PLEASE REMOVE
-
-	     */
-	    printArray (createControlArray (pieceArray))
-	    Input.Pause
-
+	  
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
 
 		if whiteToMove = true and Str.Lower (movement) = "resign" then
@@ -232,7 +227,7 @@ loop
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 400 and y < maxy - 300 then
 	Sprite.Hide (backgroundSPR)
 	cls
-       HowToPlay
+	HowToPlay
 
 	loop
 	    buttonwait ("down", x, y, notused1, notused2)
