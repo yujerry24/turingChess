@@ -59,7 +59,7 @@ end if
 if pieceFoundPos (1) > 0 then
     %Make sure the king isn't moving into check
     if not ((createControlArray (pieceArray)(ypos,xpos)) mod 10 = teamNumber div 10) then
-	returnArray := pieceArray
+	result pieceArray
     end if
     %Set the king pos
     kingPos (teamNumber div 10, 1) := pieceFoundPos (1)
