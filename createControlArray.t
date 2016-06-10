@@ -3,9 +3,9 @@ function addControl (y : int, x : int, team : int, controlArray : array 1 .. 8, 
     %Write the correct control team number after checking pre-existing control
     if not controlArray(y,x) mod 10 = team then
 	if controlArray(y,x) mod 10 = 0 then
-	    controlArray(y,x) += team
+	    returnArray(y,x) += team
 	elsif controlArray(y,x) mod 10 < 3 then
-	    controlArray(y,x) = 3
+	    returnArray(y,x) := 3
 	end if
     end if
     result returnArray
