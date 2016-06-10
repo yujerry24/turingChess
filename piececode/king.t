@@ -58,6 +58,8 @@ if whiteMove = true then
     end if
 else
     blackKingPos := pieceFoundPos
+    put (createControlArray(returnArray)(blackKingPos(1), blackKingPos(2)) mod 10)
+    Input.Pause
     if not (createControlArray(returnArray)(blackKingPos(1), blackKingPos(2)) mod 10) mod 2 = 0 then %Make sure the control array is equal to 0 or 2
 	result pieceArray
     end if
