@@ -1,5 +1,8 @@
 % Chess Program
 
+%An array bin for use by any function
+var tempArray : array 1 .. 8, 1 .. 8 of int
+
 % Graphics Screen
 setscreen ("graphics:max;max,nobuttonbar")
 
@@ -48,7 +51,6 @@ include "clearBoard.t"
 
 % Clicking Buttons
 var x, y, notused1, notused2 : int
-var tempArray : array 1 .. 8, 1 .. 8 of int
 
 % Fonts and other variables for points and names
 var font1 : int
@@ -147,9 +149,6 @@ loop
 		exit
 
 	    end if
-
-
-
 	    loop
 
 		movement := Str.Upper (tempInput)
@@ -196,7 +195,7 @@ loop
 		end if
 		get tempInput : *
 
-	    end loop
+	    end loop 
 
 
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
