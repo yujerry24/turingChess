@@ -121,7 +121,7 @@ end writeControlArray
 
 
 % Program to figure out which pieces control which squares.
-function createControlArray (pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
+function createControlArray (pieceArray : array 1 .. 8, 1 .. 8 of int, mode : string) : array 1 .. 8, 1 .. 8 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int
     for i : 1 .. 8
 	for v : 1 .. 8
@@ -131,7 +131,9 @@ function createControlArray (pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1
     for y : 1 .. 8
 	for x : 1 .. 8
 	    if not pieceArray (y, x) = 0 and pieceArray (y, x) div 10 > 0 then
-		returnArray := writeControlArray (pieceArray (y, x), y, x, returnArray, pieceArray)
+		if (not (mode = "noKingWhite" and pieceArray(y,x) = 16)) and (not (mode = "noKingBlack" and pieceArray(y,x) = 26)) then 
+		    returnArray := writeControlArray (pieceArray (y, x), y, x, returnArray, pieceArray)
+		end if
 	    end if
 	end for
     end for
