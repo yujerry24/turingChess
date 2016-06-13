@@ -39,7 +39,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 		    if piece = 1 then %Pawn control
 			if y + pawnMoveDir <= 8 and y + pawnMoveDir >= 1 then %Failsafe to make sure the pawn hasn't reached the end
 			    if x - 1 >= 1 then
-				if y + pawnMoveDir = kingPos (team, 1) and x - 1 = kingPos (team, 2) then
+				if y + pawnMoveDir = kingPos (checkTeam, 1) and x - 1 = kingPos (checkTeam, 2) then
 				    put "Pawn is threatening king"
 				    Input.Pause
 				    if blockPossible = false then
@@ -48,7 +48,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 				end if
 			    end if
 			    if x + 1 <= 8 then
-				if y + pawnMoveDir = kingPos (team, 1) and x + 1 = kingPos (team, 2) then
+				if y + pawnMoveDir = kingPos (checkTeam, 1) and x + 1 = kingPos (checkTeam, 2) then
 				    put "Pawn is threatening king"
 				    Input.Pause
 				    if blockPossible = false then
@@ -61,7 +61,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 		    elsif piece = 2 then %Rook control
 			for pos : y .. 8 %Look vertically below
 			    if not pos = y then
-				if pos = kingPos (team, 1) and y = kingPos (team, 2) then
+				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
 				    put "Rook is threatening king"
 				    Input.Pause
 				    if blockPossible = false then
@@ -74,7 +74,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			end for
 			for decreasing pos : y .. 1     %Look vertically above
 			    if not pos = y then
-				if pos = kingPos (team, 1) and y = kingPos (team, 2) then
+				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
 				    put "Rook is threatening king"
 				    Input.Pause
 				    if blockPossible = false then
@@ -88,7 +88,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 
 			for pos : x .. 8         %Look to the right
 			    if not pos = x then
-				if y = kingPos (team, 1) and pos = kingPos (team, 2) then
+				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
 				    put "Rook is threatening king"
 				    Input.Pause
 				    if blockPossible = false then
@@ -101,7 +101,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			end for
 			for decreasing pos : x .. 1             %Look to the left
 			    if not pos = x then
-				if y = kingPos (team, 1) and pos = kingPos (team, 2) then
+				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
 				    put "Rook is threatening king"
 				    Input.Pause
 				    if blockPossible = false then
@@ -118,7 +118,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    for xpos : -2 .. 2
 				if (abs (xpos) = 2 and abs (ypos) = 1) or (abs (xpos) = 1 and abs (ypos) = 2) then
 				    if (ypos + y <= 8 and ypos + y >= 1) and (xpos + x <= 8 and xpos + x >= 1) then
-					if ypos + y = kingPos (team, 1) and xpos + x = kingPos (team, 2) then
+					if ypos + y = kingPos (checkTeam, 1) and xpos + x = kingPos (checkTeam, 2) then
 					    put "Knight is threatening king"
 					    Input.Pause
 					    result true
@@ -132,7 +132,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Bottom right
 			    if x + xpos <= 8 and y + xpos <= 8 then
-				if y + xpos = kingPos (team, 1) and x + xpos = kingPos (team, 2) then
+				if y + xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -145,7 +145,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Top left
 			    if x - xpos >= 1 and y - xpos >= 1 then
-				if y - xpos = kingPos (team, 1) and x - xpos = kingPos (team, 2) then
+				if y - xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -158,7 +158,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Bottom left
 			    if x - xpos >= 1 and y + xpos <= 8 then
-				if y + xpos = kingPos (team, 1) and x - xpos = kingPos (team, 2) then
+				if y + xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -171,7 +171,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Top right
 			    if y - xpos >= 1 and x + xpos <= 8 then
-				if y - xpos = kingPos (team, 1) and x + xpos = kingPos (team, 2) then
+				if y - xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -187,7 +187,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Bottom right
 			    if x + xpos <= 8 and y + xpos <= 8 then
-				if y + xpos = kingPos (team, 1) and x + xpos = kingPos (team, 2) then
+				if y + xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -200,7 +200,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Top left
 			    if x - xpos >= 1 and y - xpos >= 1 then
-				if y - xpos = kingPos (team, 1) and x - xpos = kingPos (team, 2) then
+				if y - xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -213,7 +213,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Bottom left
 			    if x - xpos >= 1 and y + xpos <= 8 then
-				if y + xpos = kingPos (team, 1) and x - xpos = kingPos (team, 2) then
+				if y + xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -226,7 +226,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for xpos : 1 .. 7                 %Anything plus 8 will always be out of range
 			    %Top right
 			    if y - xpos >= 1 and x + xpos <= 8 then
-				if y - xpos = kingPos (team, 1) and x + xpos = kingPos (team, 2) then
+				if y - xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -238,7 +238,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			end for
 			for pos : y .. 8                 %Look vertically below
 			    if not pos = y then
-				if pos = kingPos (team, 1) and y = kingPos (team, 2) then
+				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -250,7 +250,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			end for
 			for decreasing pos : y .. 1                 %Look vertically above
 			    if not pos = y then
-				if pos = kingPos (team, 1) and y = kingPos (team, 2) then
+				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -263,7 +263,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 
 			for pos : x .. 8                 %Look to the right
 			    if not pos = x then
-				if y = kingPos (team, 1) and pos = kingPos (team, 2) then
+				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -275,7 +275,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			end for
 			for decreasing pos : x .. 1                 %Look to the left
 			    if not pos = x then
-				if y = kingPos (team, 1) and pos = kingPos (team, 2) then
+				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -291,7 +291,7 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    for xpos : -2 .. 2
 				if (abs (xpos) = 2 and abs (ypos) = 1) or (abs (xpos) = 1 and abs (ypos) = 2) then
 				    if (ypos + y <= 8 and ypos + y >= 1) and (xpos + x <= 8 and xpos + x >= 1) then
-					if ypos + y = kingPos (team, 1) and xpos + x = kingPos (team, 2) then
+					if ypos + y = kingPos (checkTeam, 1) and xpos + x = kingPos (checkTeam, 2) then
 					    result true
 					end if
 				    end if
