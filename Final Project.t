@@ -27,11 +27,11 @@ include "isValidNotation.t"
 
 include "compareArray.t"
 
+include "createControlArray.t"
+
 include "drawBoard.t"
 
 include "resolveConflict.t"
-
-include "createControlArray.t"
 
 include "isMate.t"
 

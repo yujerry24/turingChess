@@ -29,8 +29,14 @@ procedure drawBoard (grid : array 1 .. 8, 1 .. 8 of int)
 	    elsif grid (y, x) = 25 then %Black queen
 		Pic.Draw (blackQueenIMG, (x - 1) * 50, (8 - y) * 50, picMerge)
 	    elsif grid (y, x) = 16 then %White king
+		if (createControlArray(grid, "default")(y,x) mod 10 = 2) or (createControlArray(grid, "default")(y,x) mod 10 = 3) then
+		    Pic.Draw(dangerIMG, (x - 1) * 50, (8 - y) * 50, picMerge)
+		end if
 		Pic.Draw (whiteKingIMG, (x - 1) * 50, (8 - y) * 50, picMerge)
 	    elsif grid (y, x) = 26 then %Black king
+		if (createControlArray(grid, "default")(y,x) mod 10 = 1) or (createControlArray(grid, "default")(y,x) mod 10 = 3) then
+		    Pic.Draw(dangerIMG, (x - 1) * 50 + 1, (8 - y) * 50 - 1, picMerge)
+		end if
 		Pic.Draw (blackKingIMG, (x - 1) * 50, (8 - y) * 50, picMerge)
 	    end if
 	end for
