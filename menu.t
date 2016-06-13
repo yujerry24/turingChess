@@ -1,8 +1,7 @@
 procedure menu
 var font1 : int
 font1 := Font.New ("MS Serif:33:Bold")
-var blackScore : int := 0
-var whiteScore : int := 0
+
 var lastBlackMove : string := "N/A"
 var lastWhiteMove : string := "N/A"
 Font.Draw ("Turing Chess", maxx div 2 - 120, maxy - 100, font1, black)
