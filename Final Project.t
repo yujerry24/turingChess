@@ -103,6 +103,9 @@ loop
 	Sprite.Hide (backgroundSPR)
 
 	loop
+	    %Reset check and checkmate variables
+	    check := false
+	    checkmate := false
 
 	    drawBoard (pieceArray)
 	    scores
@@ -112,7 +115,6 @@ loop
 	    get tempInput : *
 
 	    if Str.Lower (tempInput) = "exit" then
-
 		lastWhiteMove := "N/A"
 		lastBlackMove := "N/A"
 		whiteToMove := true
@@ -156,9 +158,7 @@ loop
 
 	    end if
 	    loop
-		%Reset check and checkmate variables
-		check := false
-		checkmate := false
+
 
 		movement := Str.Upper (tempInput)
 
@@ -194,6 +194,7 @@ loop
 			elsif not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
 			    lastBlackMove := tempInput
 			end if
+			
 			exit when not compareArray (comparisonArray, pieceArray)
 		    end if
 		    drawBoard (pieceArray)
@@ -201,10 +202,12 @@ loop
 		    fork errorSound
 		    scores
 		end if
+
 		get tempInput : *
-
 	    end loop
-
+	    
+		put checkmate
+		Input.Pause
 
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
 

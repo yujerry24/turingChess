@@ -60,7 +60,7 @@ end if
 
 if pieceFoundPos (1) > 0 then
     %Make sure the king isn't moving into check
-    if not ((createControlArray (pieceArray)(ypos,xpos)) mod 10 = teamNumber div 10) then
+    if not ((createControlArray (pieceArray, "default")(ypos,xpos)) mod 10 = teamNumber div 10) then
 	result pieceArray
     end if
     %Set the king pos if the move is valid. We will need this to check for check
