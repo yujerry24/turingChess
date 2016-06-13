@@ -109,7 +109,7 @@ loop
 	    checkmate := false
 
 	    drawBoard (pieceArray)
-	    scores(blackScore,whiteScore)
+	    scores(blackScore,whiteScore,lastBlackMove,lastWhiteMove)
 
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
 	    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
@@ -166,7 +166,7 @@ loop
 		if Str.Lower (tempInput) = "help" then
 		    include "help.t"
 		    drawBoard (pieceArray)
-		    scores(blackScore,whiteScore)
+		    scores(blackScore,whiteScore,lastBlackMove,lastWhiteMove)
 		    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 		else
 		    if movement = "EXIT" or movement = "exit" then
@@ -192,8 +192,10 @@ loop
 			pieceArray := doMove (movement, whiteToMove, pieceArray)
 			if not compareArray (comparisonArray, pieceArray) and whiteToMove = true then
 			    lastWhiteMove := tempInput
+			   
 			elsif not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
 			    lastBlackMove := tempInput
+			   
 			end if
 
 			exit when not compareArray (comparisonArray, pieceArray)
@@ -201,7 +203,7 @@ loop
 		    drawBoard (pieceArray)
 		    put "Invalid move. Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 		    fork errorSound
-		    scores(blackScore,whiteScore)
+		    scores(blackScore,whiteScore,lastBlackMove,lastWhiteMove)
 		end if
 
 		get tempInput : *
