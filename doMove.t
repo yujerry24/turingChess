@@ -13,7 +13,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     var pieceFound2Pos : array 1 .. 2 of int
     var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray
     var resolveRequired : boolean := false
-    
+
     %Note: "result pieceArray" basically kills the function
 
     %Check if there is already a piece occupying the space
@@ -27,7 +27,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     if not whiteMove then
 	teamNumber := 20
     end if
-    
+
     moveDir := (-1) ** ((teamNumber div 10) + 1) %Mainly for pawn movement
 
     %Actually do the move
@@ -43,6 +43,11 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	include "piececode/bishop.t"
     elsif move (1) = "Q" then %Queen movement
 	include "piececode/queen/queenMain.t"
+    end if
+    
+    %Prevent players from putting their own king in check
+    if (not (createControlArray (returnArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 = teamNumber div 10)) and (not (createControlArray (pieceArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 = 0)) then
+	result pieceArray
     end if
     result returnArray
 end doMove
