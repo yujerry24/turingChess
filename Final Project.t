@@ -194,7 +194,7 @@ loop
 			elsif not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
 			    lastBlackMove := tempInput
 			end if
-			
+
 			exit when not compareArray (comparisonArray, pieceArray)
 		    end if
 		    drawBoard (pieceArray)
@@ -205,9 +205,22 @@ loop
 
 		get tempInput : *
 	    end loop
-	    
-		put checkmate
+
+	    if checkmate = true then
+		if whiteToMove = true then
+		    Font.Draw ("White Wins By CheckMate!", maxx div 2, maxy div 2, font1, black)
+		elsif whiteToMove = false then
+		    Font.Draw ("Black Wins By CheckMate!", maxx div 2, maxy div 2, font1, black)
+		end if
 		Input.Pause
+		exit
+	    elsif check = true then
+		 if whiteToMove = true then
+		    put "White is checking black"
+		elsif whiteToMove = false then
+		    put "Black is checking white"
+		end if
+	    end if
 
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
 

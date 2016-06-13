@@ -7,6 +7,8 @@ var chessImg : int
 chessImg := Pic.FileNew ("images/emptyBoard.jpg")
 chessImg := Pic.Scale (chessImg, 400,400)
 
+%Danger zone!
+
 % PAWNS
 
 % Black pawn image
