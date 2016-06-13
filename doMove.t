@@ -46,14 +46,16 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     end if
 
     %Prevent players from putting their own king in check
-    if (not (createControlArray (returnArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 = teamNumber div 10)) and (createControlArray (returnArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 > 0) then
+    if teamNumber = 10 and ((createControlArray(returnArray)(kingPos(1,1),kingPos(1,2)) mod 10 = 3) or (createControlArray (returnArray) (kingPos (1, 1), kingPos (1, 2)) mod 10 = 2)) then 
+	result pieceArray
+    elsif teamNumber = 20 and ((createControlArray(returnArray)(kingPos(2,1),kingPos(2,2)) mod 10 = 3) or (createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 1)) then
 	result pieceArray
     end if
 
     %Check to see if the opponent's king has been put in check
-    if teamNumber = 10 and (createControlArray (returnArray) (kingPos (1, 1), kingPos (1, 2)) mod 10 = 3 or createControlArray (returnArray) (kingPos (1, 1), kingPos (1, 2)) mod 10 = 1) then
+    if teamNumber = 20 and (createControlArray (returnArray) (kingPos (1, 1), kingPos (1, 2)) mod 10 = 3 or createControlArray (returnArray) (kingPos (1, 1), kingPos (1, 2)) mod 10 = 2) then
 	check := true
-    elsif teamNumber = 20 and (createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 3 or createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 2) then
+    elsif teamNumber = 10 and (createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 3 or createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 1) then
 	check := true
     else
 	check := false

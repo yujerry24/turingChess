@@ -20,6 +20,8 @@ end for
 if pieceFound = true then %Don't need to castle
     returnArray (ypos, xpos) := teamNumber + 6
     returnArray (pieceFoundPos (1), pieceFoundPos (2)) := 30
+    pieceFoundPos(1) := ypos
+    pieceFoundPos(2) := xpos
 elsif (teamNumber = 10 and ypos = 8) or (teamNumber = 20 and ypos = 1) then %Castling code
     if xpos = 7 and pieceArray (ypos, 5) = teamNumber + 6 and pieceArray (ypos, 8) = teamNumber + 2 then %Kingside
 	for i : 6 .. 7 %Because I don't want the if statement to get too long
