@@ -213,13 +213,7 @@ loop
 		    Font.Draw ("Black Wins By CheckMate!", maxx div 2, maxy div 2, font1, black)
 		end if
 		Input.Pause
-		exit
-	    elsif check = true then
-		 if whiteToMove = true then
-		    put "White is checking black"
-		elsif whiteToMove = false then
-		    put "Black is checking white"
-		end if
+		movement := "exit" %So that we don't have to put the exit code multiple times
 	    end if
 
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
