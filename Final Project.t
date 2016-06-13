@@ -210,11 +210,16 @@ loop
 	    if checkmate = true then
 		cls
 		if whiteToMove = true then
-		    Font.Draw ("White Wins By CheckMate!", maxx div 2, maxy div 2, font1, black)
+		    Font.Draw ("White Wins By Checkmate!", maxx div 2, maxy div 2, font1, black)
+		    delay(2000)
+		    cls
 		elsif whiteToMove = false then
-		    Font.Draw ("Black Wins By CheckMate!", maxx div 2, maxy div 2, font1, black)
+		    Font.Draw ("Black Wins By Checkmate!", maxx div 2, maxy div 2, font1, black)
+		    delay (2000)
+		    cls
 		end if
 		drawBoard(pieceArray)
+			   Font.Draw ("Press Any Key To Exit", maxx div 2, maxy div 2, font1, black)
 		Input.Pause
 		movement := "exit" %So that we don't have to put the exit code multiple times
 	    end if
