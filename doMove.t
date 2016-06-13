@@ -55,10 +55,18 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	check := true
     elsif teamNumber = 20 and (createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 3 or createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 2) then
 	check := true
+    else
+	check := false
     end if
 
-    checkmate := isMate(returnArray, kingPos, teamNumber div 10)
-
+    if check = true then
+	if teamNumber = 10 then
+	    checkmate := isMate(returnArray, kingPos, 2)
+	else
+	    checkmate := isMate(returnArray, kingPos, 1)
+	end if
+    end if
+    
     put checkmate
     Input.Pause
 
