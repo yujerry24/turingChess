@@ -61,7 +61,7 @@ if pieceFoundPos (1) > 0 then
     if not ((createControlArray (pieceArray)(ypos,xpos)) mod 10 = teamNumber div 10) then
 	result pieceArray
     end if
-    %Set the king pos
+    %Set the king pos if the move is valid. We will need this to check for check
     kingPos (teamNumber div 10, 1) := pieceFoundPos (1)
     kingPos (teamNumber div 10, 2) := pieceFoundPos (2)
 end if

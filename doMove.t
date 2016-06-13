@@ -44,10 +44,23 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     elsif move (1) = "Q" then %Queen movement
 	include "piececode/queen/queenMain.t"
     end if
-    
+
     %Prevent players from putting their own king in check
-    if (not (createControlArray (returnArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 = teamNumber div 10)) and (not (createControlArray (pieceArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 = 0)) then
+    if (not (createControlArray (returnArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 = teamNumber div 10)) and (createControlArray (returnArray) (kingPos (teamNumber div 10, 1), kingPos (teamNumber div 10, 2)) mod 10 > 0) then
 	result pieceArray
     end if
+
+    %Check to see if the opponent's king has been put in check
+    if teamNumber = 10 and (createControlArray (returnArray) (kingPos (1, 1), kingPos (1, 2)) mod 10 = 3 or createControlArray (returnArray) (kingPos (1, 1), kingPos (1, 2)) mod 10 = 1) then
+	check := true
+    elsif teamNumber = 20 and (createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 3 or createControlArray (returnArray) (kingPos (2, 1), kingPos (2, 2)) mod 10 = 2) then
+	check := true
+    end if
+
+    checkmate := isMate(returnArray, kingPos, teamNumber div 10)
+
+    put checkmate
+    Input.Pause
+
     result returnArray
 end doMove

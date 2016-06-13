@@ -33,17 +33,22 @@ include "resolveConflict.t"
 
 include "createControlArray.t"
 
+include "isMate.t"
+
 %King pos array (Used in doMove and must therefore be declared here)
 var kingPos : array 1 .. 2, 1 .. 2 of int
 %White king
-kingPos(1,1) := (8)
-kingPos(1,2) := (5)
+kingPos (1, 1) := (8)
+kingPos (1, 2) := (5)
 %Black king
-kingPos(2,1) := (1)
-kingPos(2,2) := (5)
+kingPos (2, 1) := (1)
+kingPos (2, 2) := (5)
 
 %Variable to check whether a piece can block a check
 var blockPossible : boolean := false
+
+%Variables for check and checkmate (dependency of doMove)
+var check, checkmate : boolean
 
 include "doMove.t"
 
@@ -85,6 +90,7 @@ end moveSound
 process errorSound
     Music.PlayFile ("ChessErrorSound.wav")
 end errorSound
+
 
 % Main loop for navigation between screens/windows
 loop
@@ -150,6 +156,9 @@ loop
 
 	    end if
 	    loop
+		%Reset check and checkmate variables
+		check := false
+		checkmate := false
 
 		movement := Str.Upper (tempInput)
 
@@ -182,8 +191,7 @@ loop
 			pieceArray := doMove (movement, whiteToMove, pieceArray)
 			if not compareArray (comparisonArray, pieceArray) and whiteToMove = true then
 			    lastWhiteMove := tempInput
-			end if
-			if not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
+			elsif not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
 			    lastBlackMove := tempInput
 			end if
 			exit when not compareArray (comparisonArray, pieceArray)
@@ -195,7 +203,7 @@ loop
 		end if
 		get tempInput : *
 
-	    end loop 
+	    end loop
 
 
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
