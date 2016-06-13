@@ -6,7 +6,7 @@ var tempArray : array 1 .. 8, 1 .. 8 of int
 % Graphics Screen
 setscreen ("graphics:max;max,nobuttonbar")
 
-% Include files for reference later
+% Include files for reference later (The order is important because of dependencies)
 include "menu.t"
 
 include "HowToPlay.t"
@@ -35,7 +35,7 @@ include "resolveConflict.t"
 
 include "isMate.t"
 
-%King pos array (Used in doMove and must therefore be declared here)
+%King pos array (Dependency of doMove and must therefore be declared here)
 var kingPos : array 1 .. 2, 1 .. 2 of int
 %White king
 kingPos (1, 1) := (8)
@@ -55,6 +55,7 @@ include "doMove.t"
 include "clearBoard.t"
 
 % Clicking Buttons
+% Notused variables must be written to but are not used
 var x, y, notused1, notused2 : int
 
 % Fonts and other variables for points and names
