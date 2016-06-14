@@ -123,6 +123,7 @@ loop
 	    get tempInput : *
 
 	    if Str.Lower (tempInput) = "exit" then
+		%Reset all the variables once the user exits back to menu
 		lastWhiteMove := "N/A"
 		lastBlackMove := "N/A"
 		whiteToMove := true
@@ -139,11 +140,14 @@ loop
 		exit
 
 	    elsif Str.Lower (tempInput) = "resign" then
+		%Resignation code
 		if whiteToMove = true then
 		    cls
+		    %Draw the big font
 		    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
 		    delay (2000)
 		    cls
+		    %Ask for, get, and store the winner's name
 		    locate (maxrow div 2, maxcol div 2)
 		    put "What is the winner's name?"
 		    locate (maxrow div 2 + 1, maxcol div 2)
@@ -157,9 +161,11 @@ loop
 		end if
 		if whiteToMove = false then
 		    cls
+		    %Draw the big font
 		    Font.Draw ("White Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
 		    delay (2000)
 		    cls
+		    %Ask for, get, and store the winner's name
 		    locate (maxrow div 2, maxcol div 2)
 		    put "What is the winner's name?"
 		    locate (maxrow div 2 + 1, maxcol div 2)
@@ -171,6 +177,7 @@ loop
 		    cls
 		    delay (2000)
 		end if
+		%Reset variables for exit back to menu
 		lastWhiteMove := "N/A"
 		lastBlackMove := "N/A"
 		whiteToMove := true
@@ -188,25 +195,30 @@ loop
 
 	    end if
 	    loop
-
+		%This code is put in here twice because the first instance is for the first one
+		%Jerry seems to think this is the only way to get it to work
 
 		movement := Str.Upper (tempInput)
 
 		if Str.Lower (tempInput) = "help" then
+		    %Display the quick help for codes and whatnot
 		    include "help.t"
 		    drawBoard (pieceArray)
 		    scores (blackScore, whiteScore, lastBlackMove, lastWhiteMove)
 		    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 		else
 		    if movement = "EXIT" or movement = "exit" then
+			%This is pretty self-explanatory
 			exit
 		    end if
 		    if Str.Lower (movement) = "resign" then
 			if whiteToMove = true then
 			    cls
+			    %Draw the big font
 			    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
 			    delay (2000)
 			    cls
+			    %Ask for, get, and store the winner's name
 			    locate (maxrow div 2, maxcol div 2)
 			    put "What is the winner's name?"
 			    locate (maxrow div 2 + 1, maxcol div 2)
@@ -221,9 +233,11 @@ loop
 			end if
 			if whiteToMove = false then
 			    cls
+			    %Draw the big font
 			    Font.Draw ("White Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
 			    delay (2000)
 			    cls
+			    %Ask for, get, and store the winner's name
 			    locate (maxrow div 2, maxcol div 2)
 			    put "What is the winner's name?"
 			    locate (maxrow div 2 + 1, maxcol div 2)
@@ -238,17 +252,16 @@ loop
 			end if
 		    end if
 		    if isValidNotation (movement) then
-
+			%This basically actually performs the move
 			comparisonArray := pieceArray
 			pieceArray := doMove (movement, whiteToMove, pieceArray)
 			if not compareArray (comparisonArray, pieceArray) and whiteToMove = true then
 			    lastWhiteMove := tempInput
-
 			elsif not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
 			    lastBlackMove := tempInput
-
 			end if
 
+			%doMove returns the unchanged array if a move is not allowed
 			exit when not compareArray (comparisonArray, pieceArray)
 		    end if
 		    drawBoard (pieceArray)
@@ -261,6 +274,7 @@ loop
 	    end loop
 
 	    if checkmate = true then
+		%Tell the users that someone won the game
 		cls
 		if whiteToMove = true then
 		    Font.Draw ("White Wins By Checkmate!", maxx div 2, maxy div 2, font1, black)
@@ -289,14 +303,13 @@ loop
 		    name3 := name2
 		    name2 := name1
 		    name1 := winnersName
-
 		    delay (2000)
 		    cls
 		end if
 		drawBoard (pieceArray)
 		Font.Draw ("Press Any Key To Exit", maxx div 2, maxy div 2, font1, black)
 		Input.Pause
-		movement := "exit" %So that we don't have to put the exit code multiple times
+		movement := "exit" %So that we don't have to put the exit/reset variable code multiple times
 	    end if
 
 	    if Str.Lower (movement) = "exit" or Str.Lower (movement) = "resign" then
@@ -336,6 +349,7 @@ loop
 		    delay (2000)
 
 		end if
+		%Reset all variables for exiting to menu
 		whiteToMove := true
 		tempArray := resetBoard (pieceArray)
 		cls
@@ -358,7 +372,7 @@ loop
 
 	end loop
     end if
-
+    %This is all menu button code. notused1 and notused2 are variables that are returned by buttonwait but not used in this program
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 400 and y < maxy - 300 then
 	Sprite.Hide (backgroundSPR)
 	cls
@@ -378,6 +392,7 @@ loop
     end if
 
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 550 and y < maxy - 450 then
+	%Scoreboard code for bragging rights
 	Sprite.Hide (backgroundSPR)
 	cls
 	Font.Draw ("Scoreboard/Recent Winners", maxx div 2 - 180, maxy - 100, font1, black)
@@ -402,6 +417,7 @@ loop
     end if
 
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 650 and y < maxy - 575 then
+	%Exit the game and kill the program
 	Sprite.Hide (backgroundSPR)
 	cls
 	Font.Draw ("Thanks for Playing!", maxx div 2, maxy div 2, font1, black)
