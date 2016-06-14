@@ -1,19 +1,19 @@
+%Validation for rooks and queens
 include "piececode/rook/rookValidation.t"
-
 include "piececode/queen/queenValidation.t"
 
 function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 1 .. 8 of int) : array 1 .. 8, 1 .. 8 of int
-    var xpos : int := index ("ABCDEFGH", move (2))
+    var xpos : int := index ("ABCDEFGH", move (2)) %X position of the piece
     var ypos : int := 9 - strint (move (3)) %Invert the y-axis
-    var destination : int := pieceArray (ypos, xpos)
-    var moveDir : int
-    var teamNumber : int := 10
-    var pieceFound : boolean := false
-    var pieceFoundPos : array 1 .. 2 of int
-    var pieceFound2Pos : array 1 .. 2 of int
-    var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray
-    var resolveRequired : boolean := false
-    var controlArray : array 1 .. 8, 1 .. 8 of int
+    var destination : int := pieceArray (ypos, xpos) %Piececode of the destination
+    var moveDir : int %Direction the pawns are moving
+    var teamNumber : int := 10 %ID of the team, defaults to white, changed further down
+    var pieceFound : boolean := false %Tracks whether a piece was found to move to the target
+    var pieceFoundPos : array 1 .. 2 of int %Pos of piece found
+    var pieceFound2Pos : array 1 .. 2 of int %Pos of second piece found (for ambiguity resolution)
+    var returnArray : array 1 .. 8, 1 .. 8 of int := pieceArray %Array to return at the end of the program
+    var resolveRequired : boolean := false  %Whether ambiguity resolution is required
+    var controlArray : array 1 .. 8, 1 .. 8 of int %Array for control. Needed to prevent the king from moving into check
 
     %Note: "result pieceArray" basically kills the function
 
@@ -32,6 +32,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
     moveDir := (-1) ** ((teamNumber div 10) + 1) %Mainly for pawn movement
 
     %Actually do the move
+    %Movement code is all in the "piececode" folder
     if move (1) = "P" then %Pawn movement
 	include "piececode/pawn.t"
     elsif move (1) = "R" then %Rook movement
@@ -46,6 +47,9 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	include "piececode/queen/queenMain.t"
     end if
     
+    %From this point onwards, returnArray is basically pieceArray but after the move has been done
+    
+    %Initialize the control array
     controlArray := createControlArray(returnArray, "default")
 
     %Prevent players from putting their own king in check
@@ -55,7 +59,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	result pieceArray
     end if
 
-    %Check to see if the opponent's king has been put in check
+    %Check to see if the opponent's king has been put in check and flag accordingly
     if teamNumber = 20 and (controlArray (kingPos (1, 1), kingPos (1, 2)) mod 10 = 3 or controlArray (kingPos (1, 1), kingPos (1, 2)) mod 10 = 2) then
 	check := true
     elsif teamNumber = 10 and (controlArray (kingPos (2, 1), kingPos (2, 2)) mod 10 = 3 or controlArray (kingPos (2, 1), kingPos (2, 2)) mod 10 = 1) then
@@ -64,6 +68,7 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	check := false
     end if
 
+    %Check whether this check is actually a checkmate
     if check = true then
 	if teamNumber = 10 then
 	    checkmate := isMate(returnArray, kingPos, 2)
@@ -72,6 +77,6 @@ function doMove (move : string, whiteMove : boolean, pieceArray : array 1 .. 8, 
 	end if
     end if
     
-
+    %Return the new piece array
     result returnArray
 end doMove

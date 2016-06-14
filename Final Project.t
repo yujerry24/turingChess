@@ -1,4 +1,10 @@
-% Chess Program
+/*
+
+    TURING CHESS
+    A GAME BY MISHA AND JERRY
+    FINAL PROJECT FOR MARTIN ICS201
+
+*/
 
 %An array bin for use by any function
 var tempArray : array 1 .. 8, 1 .. 8 of int
@@ -428,4 +434,103 @@ loop
     end if
 end loop
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Misha is the best at programming
 
