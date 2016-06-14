@@ -54,6 +54,13 @@ include "doMove.t"
 
 include "clearBoard.t"
 
+var name1 : string := "Garry Kasparov"
+var name2 : string := "Bobby Fischer"
+var name3 : string := "Petrosian"
+var name4 : string := "Antoaly Karpov"
+var winnersName : string := " "
+
+
 % Clicking Buttons
 % Notused variables must be written to but are not used
 var x, y, notused1, notused2 : int
@@ -109,7 +116,7 @@ loop
 	    checkmate := false
 
 	    drawBoard (pieceArray)
-	    scores(blackScore,whiteScore,lastBlackMove,lastWhiteMove)
+	    scores (blackScore, whiteScore, lastBlackMove, lastWhiteMove)
 
 	    %exit when checkWinner(pieceArray) %Add checkWinner function later
 	    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
@@ -136,10 +143,32 @@ loop
 		    cls
 		    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
 		    delay (2000)
+		    cls
+		    locate (maxrow div 2, maxcol div 2)
+		    put "What is the winner's name?"
+		    locate (maxrow div 2 + 1, maxcol div 2)
+		    get winnersName : *
+		    name4 := name3
+		    name3 := name2
+		    name2 := name1
+		    name1 := winnersName
+		    cls
+		    delay (2000)
 		end if
 		if whiteToMove = false then
 		    cls
 		    Font.Draw ("White Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
+		    delay (2000)
+		    cls
+		    locate (maxrow div 2, maxcol div 2)
+		    put "What is the winner's name?"
+		    locate (maxrow div 2 + 1, maxcol div 2)
+		    get winnersName : *
+		    name4 := name3
+		    name3 := name2
+		    name2 := name1
+		    name1 := winnersName
+		    cls
 		    delay (2000)
 		end if
 		lastWhiteMove := "N/A"
@@ -166,7 +195,7 @@ loop
 		if Str.Lower (tempInput) = "help" then
 		    include "help.t"
 		    drawBoard (pieceArray)
-		    scores(blackScore,whiteScore,lastBlackMove,lastWhiteMove)
+		    scores (blackScore, whiteScore, lastBlackMove, lastWhiteMove)
 		    put "Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 		else
 		    if movement = "EXIT" or movement = "exit" then
@@ -177,11 +206,33 @@ loop
 			    cls
 			    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
 			    delay (2000)
+			    cls
+			    locate (maxrow div 2, maxcol div 2)
+			    put "What is the winner's name?"
+			    locate (maxrow div 2 + 1, maxcol div 2)
+			    get winnersName : *
+			    name4 := name3
+			    name3 := name2
+			    name2 := name1
+			    name1 := winnersName
+			    cls
+			    delay (2000)
 			    exit
 			end if
 			if whiteToMove = false then
 			    cls
 			    Font.Draw ("White Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
+			    delay (2000)
+			    cls
+			    locate (maxrow div 2, maxcol div 2)
+			    put "What is the winner's name?"
+			    locate (maxrow div 2 + 1, maxcol div 2)
+			    get winnersName : *
+			    name4 := name3
+			    name3 := name2
+			    name2 := name1
+			    name1 := winnersName
+			    cls
 			    delay (2000)
 			    exit
 			end if
@@ -192,10 +243,10 @@ loop
 			pieceArray := doMove (movement, whiteToMove, pieceArray)
 			if not compareArray (comparisonArray, pieceArray) and whiteToMove = true then
 			    lastWhiteMove := tempInput
-			   
+
 			elsif not compareArray (comparisonArray, pieceArray) and whiteToMove = false then
 			    lastBlackMove := tempInput
-			   
+
 			end if
 
 			exit when not compareArray (comparisonArray, pieceArray)
@@ -203,7 +254,7 @@ loop
 		    drawBoard (pieceArray)
 		    put "Invalid move. Enter your move, \"exit\" to exit (or \"help\" for help): " ..
 		    fork errorSound
-		    scores(blackScore,whiteScore,lastBlackMove,lastWhiteMove)
+		    scores (blackScore, whiteScore, lastBlackMove, lastWhiteMove)
 		end if
 
 		get tempInput : *
@@ -213,15 +264,37 @@ loop
 		cls
 		if whiteToMove = true then
 		    Font.Draw ("White Wins By Checkmate!", maxx div 2, maxy div 2, font1, black)
-		    delay(2000)
+		    delay (2000)
+		    cls
+		    locate (maxrow div 2, maxcol div 2)
+		    put "What is the winner's name?"
+		    locate (maxrow div 2 + 1, maxcol div 2)
+		    get winnersName : *
+		    name4 := name3
+		    name3 := name2
+		    name2 := name1
+		    name1 := winnersName
+
+		    delay (2000)
 		    cls
 		elsif whiteToMove = false then
 		    Font.Draw ("Black Wins By Checkmate!", maxx div 2, maxy div 2, font1, black)
 		    delay (2000)
 		    cls
+		    locate (maxrow div 2, maxcol div 2)
+		    put "What is the winner's name?"
+		    locate (maxrow div 2 + 1, maxcol div 2)
+		    get winnersName : *
+		    name4 := name3
+		    name3 := name2
+		    name2 := name1
+		    name1 := winnersName
+
+		    delay (2000)
+		    cls
 		end if
-		drawBoard(pieceArray)
-			   Font.Draw ("Press Any Key To Exit", maxx div 2, maxy div 2, font1, black)
+		drawBoard (pieceArray)
+		Font.Draw ("Press Any Key To Exit", maxx div 2, maxy div 2, font1, black)
 		Input.Pause
 		movement := "exit" %So that we don't have to put the exit code multiple times
 	    end if
@@ -232,11 +305,34 @@ loop
 		    cls
 		    Font.Draw ("Black Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
 		    delay (2000)
+		    cls
+		    locate (maxrow div 2, maxcol div 2)
+		    put "What is the winner's name?"
+
+		    locate (maxrow div 2 + 1, maxcol div 2)
+		    get winnersName : *
+		    name4 := name3
+		    name3 := name2
+		    name2 := name1
+		    name1 := winnersName
+		    cls
+		    delay (2000)
 
 		end if
 		if whiteToMove = false and Str.Lower (movement) = "resign" then
 		    cls
 		    Font.Draw ("White Wins by Resignation!", maxx div 2, maxy div 2, font1, black)
+		    delay (2000)
+		    cls
+		    locate (maxrow div 2, maxcol div 2)
+		    put "What is the winner's name?"
+		    locate (maxrow div 2 + 1, maxcol div 2)
+		    get winnersName : *
+		    name4 := name3
+		    name3 := name2
+		    name2 := name1
+		    name1 := winnersName
+		    cls
 		    delay (2000)
 
 		end if
@@ -284,12 +380,16 @@ loop
     if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 550 and y < maxy - 450 then
 	Sprite.Hide (backgroundSPR)
 	cls
-	Font.Draw ("Scoreboard", maxx div 2 - 120, maxy - 100, font1, black)
-	drawbox (maxx div 2 - 120, maxy - 690, maxx div 2 + 120, maxy - 615, black)
-	Font.Draw ("Back", maxx div 2 - 60, maxy - 670, font1, black)
+	Font.Draw ("Scoreboard/Recent Winners", maxx div 2 - 180, maxy - 100, font1, black)
+	Font.Draw (name1, maxx div 2 - 120, maxy - 200, font1, black)
+	Font.Draw (name2, maxx div 2 - 120, maxy - 350, font1, black)
+	Font.Draw (name3, maxx div 2 - 120, maxy - 500, font1, black)
+	Font.Draw (name4, maxx div 2 - 120, maxy - 650, font1, black)
+	drawbox (maxx div 2 - 120, maxy - 790, maxx div 2 + 120, maxy - 705, black)
+	Font.Draw ("Back", maxx div 2 - 60, maxy - 750, font1, black)
 	loop
 	    buttonwait ("down", x, y, notused1, notused2)
-	    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 690 and y < maxy - 615 then
+	    if x > maxx div 2 - 120 and x < maxx div 2 + 120 and y > maxy - 790 and y < maxy - 705 then
 		cls
 		Sprite.Show (backgroundSPR)
 		menu
