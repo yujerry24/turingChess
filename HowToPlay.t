@@ -32,6 +32,8 @@ var font1 : int
 	put "If the king cannot legally move out of the space that it will be captured in and/or cannot eliminate "
 	put "the enemy piece(s) threatening capture, then it is checkmate. As a result, you should use the rest of "
 	put "your pieces to protect your king and attack the opposing enemy's king."
+	put "Images from chess.com"
+	put "Sounds from Windows 7"
 	Pic.Draw (whitePawnIMG, maxx div 2 + 200, maxy - 200, picMerge)
 	Pic.Draw (blackPawnIMG, maxx div 2 + 250, maxy - 200, picMerge)
 	Pic.Draw (whiteRookIMG, maxx div 2 + 200, maxy - 270, picMerge)
