@@ -64,9 +64,28 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			end if
 
 		    elsif piece = 2 then %Rook control
-			for pos : y .. 8 %Look vertically below
+			for pos : y .. 8         %Look vertically below
 			    if not pos = y then
-				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
+				if pos = kingPos (checkTeam, 1) and x = kingPos (checkTeam, 2) then
+				    for pos1 : y .. 8
+					if not pos1 = kingPos (checkTeam, 1) then
+					    if controlArray (pos1, x) mod 10 = checkTeam or controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+					if pos1 = kingPos (checkTeam, 1) - 1 then
+					    if controlArray (pos1, x) mod 10 = 2 then
+						blockPossible := true
+					    end if
+					    if controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := false
+					    end if
+					end if
+				    end for
+				    if blockPossible = false then
+					result true
+				    end if
 				    if blockPossible = false then
 					result true
 				    end if
@@ -75,9 +94,26 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 				end if
 			    end if
 			end for
+
 			for decreasing pos : y .. 1     %Look vertically above
 			    if not pos = y then
-				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
+				if pos = kingPos (checkTeam, 1) and x = kingPos (checkTeam, 2) then
+				    for decreasing pos1 : y .. 1
+					if not pos1 = kingPos (checkTeam, 1) then
+					    if controlArray (pos1, x) mod 10 = checkTeam or controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+					if pos1 = kingPos (checkTeam, 1) + 1 then
+					    if controlArray (pos1, x) mod 10 = 2 then
+						blockPossible := true
+					    end if
+					    if controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := false
+					    end if
+					end if
+				    end for
 				    if blockPossible = false then
 					result true
 				    end if
@@ -90,6 +126,22 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for pos : x .. 8         %Look to the right
 			    if not pos = x then
 				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
+				    for pos1 : x .. 8
+					if not (pos1 = kingPos (checkTeam, 2)) then
+					    if controlArray (y, pos1) mod 10 = checkTeam or controlArray (y, pos1) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+				    end for
+				    if x = kingPos (checkTeam, 2) - 1 then
+					if controlArray (y, x) mod 10 = 2 then
+					    blockPossible := true
+					end if
+					if controlArray (y,x mod 10) = 3 then
+					    blockPossible := false
+					end if
+				    end if
 				    if blockPossible = false then
 					result true
 				    end if
@@ -101,6 +153,22 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			for decreasing pos : x .. 1             %Look to the left
 			    if not pos = x then
 				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
+				    for pos1 : x .. 1
+					if not (pos1 = kingPos (checkTeam, 2)) then
+					    if controlArray (y, pos1) mod 10 = checkTeam or controlArray (y, pos1) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+				    end for
+				    if x = kingPos (checkTeam, 2) + 1 then
+					if controlArray (y, x) mod 10 = 2 then
+					    blockPossible := true
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    blockPossible := false
+					end if
+				    end if
 				    if blockPossible = false then
 					result true
 				    end if
@@ -128,8 +196,36 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Bottom right
 			    if x + xpos <= 8 and y + xpos <= 8 then
 				if y + xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y + ypos >= 1 and y + ypos <= 8 and x + ypos >= 1 and x + ypos <= 8 then
+					    if not (x + ypos) = kingPos (checkTeam, 2) and not (y + ypos) = kingPos (checkTeam, 1) then
+						if not y + 1 = kingPos (checkTeam, 1) and not x + 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y + ypos, x + xpos) mod 10 = checkTeam or controlArray (y + ypos, x + xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y + 1 = kingPos (checkTeam, 1) and x + 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x + xpos) = kingPos (checkTeam, 2) and (y + xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y + xpos, x + xpos) mod 10 = team) or (controlArray (y + xpos, x + xpos) mod 10 = 3)
 				    exit when not pieceArray (y + xpos, x + xpos) = 30
@@ -140,8 +236,36 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Top left
 			    if x - xpos >= 1 and y - xpos >= 1 then
 				if y - xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y - ypos >= 1 and y - ypos <= 8 and x - ypos >= 1 and x - ypos <= 8 then
+					    if not (x - ypos) = kingPos (checkTeam, 2) and not (y - ypos) = kingPos (checkTeam, 1) then
+						if not y - 1 = kingPos (checkTeam, 1) and not x - 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y - ypos, x - xpos) mod 10 = checkTeam or controlArray (y - ypos, x - xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y - 1 = kingPos (checkTeam, 1) and x - 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x - xpos) = kingPos (checkTeam, 2) and (y - xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y - xpos, x - xpos) mod 10 = team) or (controlArray (y - xpos, x - xpos) mod 10 = 3)
 				    exit when not pieceArray (y - xpos, x - xpos) = 30
@@ -152,8 +276,36 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Bottom left
 			    if x - xpos >= 1 and y + xpos <= 8 then
 				if y + xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y + ypos >= 1 and y + ypos <= 8 and x - ypos >= 1 and x - ypos <= 8 then
+					    if not (x - ypos) = kingPos (checkTeam, 2) and not (y + ypos) = kingPos (checkTeam, 1) then
+						if not y + 1 = kingPos (checkTeam, 1) and not x - 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y + ypos, x - xpos) mod 10 = checkTeam or controlArray (y + ypos, x - xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y + 1 = kingPos (checkTeam, 1) and x - 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x - xpos) = kingPos (checkTeam, 2) and (y + xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y + xpos, x - xpos) mod 10 = team) or (controlArray (y + xpos, x - xpos) mod 10 = 3)
 				    exit when not pieceArray (y + xpos, x - xpos) = 30
@@ -164,8 +316,36 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Top right
 			    if y - xpos >= 1 and x + xpos <= 8 then
 				if y - xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y - ypos >= 1 and y - ypos <= 8 and x + ypos >= 1 and x + ypos <= 8 then
+					    if not (x + ypos) = kingPos (checkTeam, 2) and not (y - ypos) = kingPos (checkTeam, 1) then
+						if not y - 1 = kingPos (checkTeam, 1) and not x + 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y - ypos, x + xpos) mod 10 = checkTeam or controlArray (y - ypos, x + xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y - 1 = kingPos (checkTeam, 1) and x + 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x + xpos) = kingPos (checkTeam, 2) and (y - xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y - xpos, x + xpos) mod 10 = team) or (controlArray (y - xpos, x + xpos) mod 10 = 3)
 				    exit when not pieceArray (y - xpos, x + xpos) = 30
@@ -179,8 +359,36 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Bottom right
 			    if x + xpos <= 8 and y + xpos <= 8 then
 				if y + xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y + ypos >= 1 and y + ypos <= 8 and x + ypos >= 1 and x + ypos <= 8 then
+					    if not (x + ypos) = kingPos (checkTeam, 2) and not (y + ypos) = kingPos (checkTeam, 1) then
+						if not y + 1 = kingPos (checkTeam, 1) and not x + 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y + ypos, x + xpos) mod 10 = checkTeam or controlArray (y + ypos, x + xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y + 1 = kingPos (checkTeam, 1) and x + 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x + xpos) = kingPos (checkTeam, 2) and (y + xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y + xpos, x + xpos) mod 10 = team) or (controlArray (y + xpos, x + xpos) mod 10 = 3)
 				    exit when not pieceArray (y + xpos, x + xpos) = 30
@@ -191,8 +399,36 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Top left
 			    if x - xpos >= 1 and y - xpos >= 1 then
 				if y - xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y - ypos >= 1 and y - ypos <= 8 and x - ypos >= 1 and x - ypos <= 8 then
+					    if not (x - ypos) = kingPos (checkTeam, 2) and not (y - ypos) = kingPos (checkTeam, 1) then
+						if not y - 1 = kingPos (checkTeam, 1) and not x - 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y - ypos, x - xpos) mod 10 = checkTeam or controlArray (y - ypos, x - xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y - 1 = kingPos (checkTeam, 1) and x - 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x - xpos) = kingPos (checkTeam, 2) and (y - xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y - xpos, x - xpos) mod 10 = team) or (controlArray (y - xpos, x - xpos) mod 10 = 3)
 				    exit when not pieceArray (y - xpos, x - xpos) = 30
@@ -203,8 +439,36 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Bottom left
 			    if x - xpos >= 1 and y + xpos <= 8 then
 				if y + xpos = kingPos (checkTeam, 1) and x - xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y + ypos >= 1 and y + ypos <= 8 and x - ypos >= 1 and x - ypos <= 8 then
+					    if not (x - ypos) = kingPos (checkTeam, 2) and not (y + ypos) = kingPos (checkTeam, 1) then
+						if not y + 1 = kingPos (checkTeam, 1) and not x - 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y + ypos, x - xpos) mod 10 = checkTeam or controlArray (y + ypos, x - xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y + 1 = kingPos (checkTeam, 1) and x - 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x - xpos) = kingPos (checkTeam, 2) and (y + xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y + xpos, x - xpos) mod 10 = team) or (controlArray (y + xpos, x - xpos) mod 10 = 3)
 				    exit when not pieceArray (y + xpos, x - xpos) = 30
@@ -215,28 +479,64 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    %Top right
 			    if y - xpos >= 1 and x + xpos <= 8 then
 				if y - xpos = kingPos (checkTeam, 1) and x + xpos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
+				    for ypos : 0 .. 7
+					if y - ypos >= 1 and y - ypos <= 8 and x + ypos >= 1 and x + ypos <= 8 then
+					    if not (x + ypos) = kingPos (checkTeam, 2) and not (y - ypos) = kingPos (checkTeam, 1) then
+						if not y - 1 = kingPos (checkTeam, 1) and not x + 1 = kingPos (checkTeam, 2) then
+						    if controlArray (y - ypos, x + xpos) mod 10 = checkTeam or controlArray (y - ypos, x + xpos) mod 10 = 3 then
+							blockPossible := true
+							result false
+						    end if
+						end if
+					    end if
+					end if
+				    end for
+				    if y - 1 = kingPos (checkTeam, 1) and x + 1 = kingPos (checkTeam, 2) then
+					if controlArray (y, x) mod 10 = checkTeam then
+					    result false
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    result true
+					end if
+				    end if
+				    if controlArray (y, x) = checkTeam or controlArray (y, x) = 3 then
+					result false
+				    end if
+				    if blockPossible = true then
+					result false
+				    end if
+				    if (x + xpos) = kingPos (checkTeam, 2) and (y - xpos) = kingPos (checkTeam, 1) then
+					if blockPossible = false then
+					    result true
+					end if
 				    end if
 				    exit when (controlArray (y - xpos, x + xpos) mod 10 = team) or (controlArray (y - xpos, x + xpos) mod 10 = 3)
 				    exit when not pieceArray (y - xpos, x + xpos) = 30
 				end if
 			    end if
 			end for
-			for pos : y .. 8                                 %Look vertically below
+			for pos : y .. 8          %Look vertically below
 			    if not pos = y then
-				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
+				if pos = kingPos (checkTeam, 1) and x = kingPos (checkTeam, 2) then
+				    for pos1 : y .. 8
+					if not pos1 = kingPos (checkTeam, 1) then
+					    if controlArray (pos1, x) mod 10 = checkTeam or controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+					if pos1 = kingPos (checkTeam, 1) - 1 then
+					    if controlArray (pos1, x) mod 10 = 2 then
+						blockPossible := true
+					    end if
+					    if controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := false
+					    end if
+					end if
+				    end for
 				    if blockPossible = false then
 					result true
 				    end if
-				    exit when (controlArray (pos, x) mod 10 = team) or (controlArray (pos, x) mod 10 = 3)
-				    exit when not pieceArray (pos, x) = 30
-				end if
-			    end if
-			end for
-			for decreasing pos : y .. 1                                     %Look vertically above
-			    if not pos = y then
-				if pos = kingPos (checkTeam, 1) and y = kingPos (checkTeam, 2) then
 				    if blockPossible = false then
 					result true
 				    end if
@@ -246,29 +546,88 @@ function isMate (pieceArray : array 1 .. 8, 1 .. 8 of int, kingPos : array 1 .. 
 			    end if
 			end for
 
-			for pos : x .. 8                                         %Look to the right
-			    if not pos = x then
-				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
+			for decreasing pos : y .. 1     %Look vertically above
+			    if not pos = y then
+				if pos = kingPos (checkTeam, 1) and x = kingPos (checkTeam, 2) then
+				    for decreasing pos1 : y .. 1
+					if not pos1 = kingPos (checkTeam, 1) then
+					    if controlArray (pos1, x) mod 10 = checkTeam or controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+					if pos1 = kingPos (checkTeam, 1) + 1 then
+					    if controlArray (pos1, x) mod 10 = 2 then
+						blockPossible := true
+					    end if
+					    if controlArray (pos1, x) mod 10 = 3 then
+						blockPossible := false
+					    end if
+					end if
+				    end for
 				    if blockPossible = false then
 					result true
 				    end if
-				    exit when (controlArray (y, pos) mod 10 = team) or (controlArray (y, pos) mod 10 = 3)
-				    exit when not pieceArray (y, pos) = 30
-				end if
-			    end if
-			end for
-			for decreasing pos : x .. 1                                             %Look to the left
-			    if not pos = x then
-				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
-				    if blockPossible = false then
-					result true
-				    end if
-				    exit when (controlArray (y, pos) mod 10 = team) or (controlArray (y, pos) mod 10 = 3)
-				    exit when not pieceArray (y, pos) = 30
+				    exit when (controlArray (pos, x) mod 10 = team) or (controlArray (pos, x) mod 10 = 3)
+				    exit when not pieceArray (pos, x) = 30
 				end if
 			    end if
 			end for
 
+			for pos : x .. 8         %Look to the right
+			    if not pos = x then
+				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
+				    for pos1 : x .. 8
+					if not (pos1 = kingPos (checkTeam, 2)) then
+					    if controlArray (y, pos1) mod 10 = checkTeam or controlArray (y, pos1) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+				    end for
+				    if x = kingPos (checkTeam, 2) - 1 then
+					if controlArray (y, x) mod 10 = 2 then
+					    blockPossible := true
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    blockPossible := false
+					end if
+				    end if
+				    if blockPossible = false then
+					result true
+				    end if
+				    exit when (controlArray (y, pos) mod 10 = team) or (controlArray (y, pos) mod 10 = 3)
+				    exit when not pieceArray (y, pos) = 30
+				end if
+			    end if
+			end for
+			for decreasing pos : x .. 1           %Look to the left
+			    if not pos = x then
+				if y = kingPos (checkTeam, 1) and pos = kingPos (checkTeam, 2) then
+				    for pos1 : x .. 1
+					if not (pos1 = kingPos (checkTeam, 2)) then
+					    if controlArray (y, pos1) mod 10 = checkTeam or controlArray (y, pos1) mod 10 = 3 then
+						blockPossible := true
+						result false
+					    end if
+					end if
+				    end for
+				    if x = kingPos (checkTeam, 2) + 1 then
+					if controlArray (y,x) mod 10 = 2 then
+					    blockPossible := true
+					end if
+					if controlArray (y, x) mod 10 = 3 then
+					    blockPossible := false
+					end if
+				    end if
+				    if blockPossible = false then
+					result true
+				    end if
+				    exit when (controlArray (y, pos) mod 10 = team) or (controlArray (y, pos) mod 10 = 3)
+				    exit when not pieceArray (y, pos) = 30
+				end if
+			    end if
+			end for
 		    elsif piece = 6 then                                                 %King
 			for ypos : -1 .. 1
 			    for xpos : -1 .. 1
